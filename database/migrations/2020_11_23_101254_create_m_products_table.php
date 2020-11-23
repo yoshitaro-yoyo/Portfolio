@@ -18,7 +18,7 @@ class CreateMProductsTable extends Migration
             /* Eloquent ORMでは主キーに対する規約を設けている。①符号なしINT (unsigned int)②フィールド名はid③オートインクリメント */
             /* Laravel5.8 Eloquent：利用の開始 主キー Eloquentは更にテーブルの主キーがidというカラム名であると想定しています。この規約をオーバーライドする場合は、protectedのprimaryKeyプロパティを定義してください。 */
 
-            $table->increments('product_id');
+            $table->increments('id');
             /* increments()で作ったカラムには裏でunsined（符号無し・整数のみ）属性が付与される auto_increment を有効にすると自動で primarykey付与  */
             /* 1テーブルに対しAUTO_INCREMENTカラム1つのみ。セカンダリーインデックス，またはユニークキーがあるカラムに対して有効。プライマリキー以外でも可 */
             
@@ -44,8 +44,8 @@ class CreateMProductsTable extends Migration
             /* 外部キー制約とは他のテーブルのデータに参照（依存）するようにカラムにつける制約のこと。参照されるのが親テーブル参照するのが子テーブルと呼ぶ。 */
             /* 主キーと外部キーはRDBにとって、それぞれのテーブルを関連付けるために使用するとても大切な機能。主キーと外部キーを使った制約で利用した場合、下記の制限が入る
             1. 存在しない値を外部キーとして登録することはできない 2. 子テーブルの外部キーに値が登録されている親テーブルのレコードは削除できない */
-            $table->foreign('sale_status_id')->references('sale_status_id')->on('m_sales_statuses')->onDelete('cascade');
-            $table->foreign('product_status_id')->references('product_status_id')->on('m_products_statuses')->onDelete('cascade');
+            $table->foreign('sale_status_id')->references('id')->on('m_sales_statuses')->onDelete('cascade');
+            $table->foreign('product_status_id')->references('id')->on('m_products_statuses')->onDelete('cascade');
             /* CASCADE=親テーブルのレコードに対し、削除または更新を行うと、子テーブル内で同じ値を持つカラムのデータに対して削除または更新を行う */
             /* RESTRICT=親テーブルのレコードに対し、削除または更新を行うとエラーとなる。設定を省略した場合 RESTRICT が設定される */
         });

@@ -13,7 +13,7 @@ class M_ProductsTableSeeder extends Seeder
     {
         DB::table('m_products')->insert([
          [
-            'product_id' => 1, 
+            'id' => 1, 
             'product_name' => '雪の恋人', 
             'category_id' => 1, 
             'price' => 1980, 
@@ -25,7 +25,7 @@ class M_ProductsTableSeeder extends Seeder
             'delete_flag' => ''
          ], 
          [
-             'product_id' => 2, 
+             'id' => 2, 
              'product_name' => 'ハブマンゴー', 
              'category_id' => 2, 
              'price' => 8800, 
@@ -37,7 +37,7 @@ class M_ProductsTableSeeder extends Seeder
              'delete_flag' => ''
          ], 
          [
-             'product_id' => 3, 
+             'id' => 3, 
              'product_name' => '一本マグロ', 
              'category_id' => 3, 
              'price' => 1800000, 
@@ -49,7 +49,7 @@ class M_ProductsTableSeeder extends Seeder
              'delete_flag' => ''
          ], 
          [
-             'product_id' => 4, 
+             'id' => 4, 
              'product_name' => '風の森', 
              'category_id' => 4, 
              'price' => 2890, 
@@ -61,7 +61,7 @@ class M_ProductsTableSeeder extends Seeder
              'delete_flag' => ''
          ], 
          [
-             'product_id' => 5, 
+             'id' => 5, 
              'product_name' => '十勝のバターハヤシライス', 
              'category_id' => 5, 
              'price' => 5800, 
@@ -73,7 +73,7 @@ class M_ProductsTableSeeder extends Seeder
              'delete_flag' => ''
          ], 
          [
-             'product_id' => 6, 
+             'id' => 6, 
              'product_name' => '爆発マトリョーシカ', 
              'category_id' => 6, 
              'price' => 288000, 
