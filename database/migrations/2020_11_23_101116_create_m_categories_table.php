@@ -15,7 +15,7 @@ class CreateMCategoriesTable extends Migration
     {
         Schema::create('m_categories', function (Blueprint $table) {
             $table->increments('category_id');
-            $table->string('category_name',32);
+            $table->string('category_name')->length(32);
         });
     }
 

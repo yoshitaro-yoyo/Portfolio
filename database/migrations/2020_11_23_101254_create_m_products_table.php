@@ -17,17 +17,22 @@ class CreateMProductsTable extends Migration
             /* Eloquent にデフォルトで設定されている主キー（Primary Key）はid。主キーを変更する：$primaryKey idを無効にして他のものを主キーとして設定できる。 */
             /* Eloquent ORMでは主キーに対する規約を設けている。①符号なしINT (unsigned int)②フィールド名はid③オートインクリメント */
             /* Laravel5.8 Eloquent：利用の開始 主キー Eloquentは更にテーブルの主キーがidというカラム名であると想定しています。この規約をオーバーライドする場合は、protectedのprimaryKeyプロパティを定義してください。 */
+
             $table->increments('product_id');
             /* increments()で作ったカラムには裏でunsined（符号無し・整数のみ）属性が付与される auto_increment を有効にすると自動で primarykey付与  */
             /* 1テーブルに対しAUTO_INCREMENTカラム1つのみ。セカンダリーインデックス，またはユニークキーがあるカラムに対して有効。プライマリキー以外でも可 */
+            
             $table->string('product_name')->length(64);
             $table->integer('category_id')->unsigned()->index();
             /* インデックスを作成することでテーブルとは別に検索用に最適化された状態で必要なデータだけがテーブルとは別に保持される。なのでデータ追加時の処理が重くなるというデメリットもある */
+            
             $table->integer('price')->unsigned()->index();
             /* 「UNSIGNED」属性を付加すると、0と正の整数のみを扱う。通常では負の数をカウントするために使用される格納域がより大きな正の整数をカウントするために使用できるようになり、同じバイト数でより大きな正の整数値を記録できる。 */
+            
             $table->string('description')->length(256);
             /* string=varcharタイプ。可変長文字列のことを指す。varchar(m)という形で指定 mはバイト数。0~65535まで char型と異なり、末尾に空白は付かない。・末尾に空白が付いた文字列は
             そのまま格納される。メリット:指定された分だけメモリに格納されるため、効率がいい。デメリット:文字数が値ごとに違うため、処理は遅く不定となる */
+            
             $table->integer('sale_status_id')->unsigned()->index();;
             $table->integer('product_status_id')->unsigned()->index();;
             $table->timestamp('regist_data');
