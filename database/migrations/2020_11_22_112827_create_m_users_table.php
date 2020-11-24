@@ -15,7 +15,7 @@ class CreateMUsersTable extends Migration
     {
         Schema::create('m_users', function (Blueprint $table) {
             //ここから
-            $table->bigIncrements('user_id');
+            $table->bigIncrements('id');
             $table->string('password',64);
             $table->string('last_name',16);
             $table->string('first_name',16);
@@ -30,7 +30,7 @@ class CreateMUsersTable extends Migration
             $table->string('company_name',128);
             $table->char('delete_flag',1);
 
-            $table->foreign('user_classification_id')->references('user_classification_id')->on('m_users_classifications')->onDelete('cascade');
+            $table->foreign('user_classification_id')->references('id')->on('m_users_classifications')->onDelete('cascade');
             //ここまで
         });
     }
