@@ -23,8 +23,8 @@ class CreateMProductsTable extends Migration
             $table->integer('price')->unsigned()->index();
             /* 「UNSIGNED」属性、0と正の整数のみを扱う。データ量が二倍になる */
             $table->string('description')->length(256);
-            $table->integer('sale_status_id')->unsigned()->index();;
-            $table->integer('product_status_id')->unsigned()->index();;
+            $table->integer('sale_status_id')->unsigned()->index();
+            $table->integer('product_status_id')->unsigned()->index();
             $table->timestamp('regist_data');
             $table->integer('user_id')->unsigned()->index();
             $table->char('delete_flag')->length(1);

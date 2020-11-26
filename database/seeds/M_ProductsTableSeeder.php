@@ -12,7 +12,7 @@ class M_ProductsTableSeeder extends Seeder
     public function run()
     {
         DB::table('m_products')->insert([
-         [
+            [
             'id' => 1, 
             'product_name' => '雪の恋人', 
             'category_id' => 1, 
@@ -23,8 +23,8 @@ class M_ProductsTableSeeder extends Seeder
             'regist_data' => date('Y-m-d H:i:s'), 
             'user_id' => 1, 
             'delete_flag' => ''
-         ], 
-         [
+            ], 
+            [
              'id' => 2, 
              'product_name' => 'ハブマンゴー', 
              'category_id' => 2, 
@@ -35,8 +35,8 @@ class M_ProductsTableSeeder extends Seeder
              'regist_data' => date('Y-m-d H:i:s'), 
              'user_id' => 2, 
              'delete_flag' => ''
-         ], 
-         [
+            ], 
+            [
              'id' => 3, 
              'product_name' => '一本マグロ', 
              'category_id' => 3, 
@@ -47,8 +47,8 @@ class M_ProductsTableSeeder extends Seeder
              'regist_data' => date('Y-m-d H:i:s'), 
              'user_id' => 3, 
              'delete_flag' => ''
-         ], 
-         [
+            ], 
+            [
              'id' => 4, 
              'product_name' => '風の森', 
              'category_id' => 4, 
@@ -59,8 +59,8 @@ class M_ProductsTableSeeder extends Seeder
              'regist_data' => date('Y-m-d H:i:s'), 
              'user_id' => 4, 
              'delete_flag' => ''
-         ], 
-         [
+            ], 
+            [
              'id' => 5, 
              'product_name' => '十勝のバターハヤシライス', 
              'category_id' => 5, 
@@ -71,8 +71,8 @@ class M_ProductsTableSeeder extends Seeder
              'regist_data' => date('Y-m-d H:i:s'), 
              'user_id' => 5, 
              'delete_flag' => ''
-         ], 
-         [
+            ], 
+            [
              'id' => 6, 
              'product_name' => '爆発マトリョーシカ', 
              'category_id' => 6, 
@@ -83,7 +83,7 @@ class M_ProductsTableSeeder extends Seeder
              'regist_date' => date('Y-m-d H:i:s'), 
              'user_id' => 6, 
              'delete_flag' => ''
-         ], 
+            ], 
         ]);
     }
 }
