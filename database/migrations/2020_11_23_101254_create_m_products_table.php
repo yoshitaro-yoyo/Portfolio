@@ -27,7 +27,7 @@ class CreateMProductsTable extends Migration
             $table->integer('product_status_id')->unsigned()->index();
             $table->timestamp('regist_data');
             $table->integer('user_id')->unsigned()->index();
-            $table->char('delete_flag')->length(1);
+            $table->char('delete_flag',1);
             /* 外部キー制約。他のテーブルのデータに参照（依存）するようにカラムにつける制約 */
             $table->foreign('sale_status_id')->references('id')->on('m_sales_statuses')->onDelete('cascade');
             $table->foreign('product_status_id')->references('id')->on('m_products_statuses')->onDelete('cascade');
