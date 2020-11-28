@@ -23,7 +23,7 @@ class CreateTOrdersDetailsTable extends Migration
             $table->timestamp('shipment_date');
 
             $table->foreign('order_id')->references('id')->on('t_orders')->onDelete('cascade');
-            //$table->foreign('product_id ')->references('id')->on('m_products')->onDelete('cascade');
+            $table->foreign('product_id ')->references('id')->on('m_products')->onDelete('cascade');
             $table->foreign('shipment_status_id')->references('id')->on('m_shipments_statuses')->onDelete('cascade');
         });
     }
