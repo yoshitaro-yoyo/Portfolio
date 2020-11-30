@@ -12,5 +12,5 @@
 */
 
 Route::get('/', function () {
-    return view('front/top');
+    return view('front/before_login');
 });
