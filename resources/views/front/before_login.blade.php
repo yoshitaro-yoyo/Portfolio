@@ -11,14 +11,14 @@
                 まだアカウントを<br>
                 お持ちでない方はこちら
               </p>
-              <a class="btn btn-primary" href="#" role="button">新規登録</a>
+              <a class="btn btn-primary" href="{{ url('/user_regist') }}" role="button">新規登録</a>
             </div>
               <div class="mt-3 mx-3 text-center">
               <p>
                 すでにアカウントを<br>
                 お持ちの方はこちら
               </p>
-              <a class="btn btn-primary" href="#" role="button">ログイン</a>
+              <a class="btn btn-primary" href="{{ url('/login') }}" role="button">ログイン</a>
               </div>
             </div>
         </main>
