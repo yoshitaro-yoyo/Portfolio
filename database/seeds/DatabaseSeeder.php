@@ -17,6 +17,8 @@ class DatabaseSeeder extends Seeder
             M_Sales_StatusesTableSeeder::class, 
             M_Products_StatusesTableSeeder::class, 
             M_ProductsTableSeeder::class, 
+            UsersClassificationsTableSeeder::class,
+            UsersTableSeeder::class,
         ]);
     }
 }
