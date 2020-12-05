@@ -59,7 +59,7 @@
                 </div>
             {!! Form::close() !!}
             <div class="mt-5 mb-5 text-center">
-                <h4><a href="login.blade.php">ログインはこちらから</a></h4>
+                <h4><a href="login">ログインはこちらから</a></h4>
             </div>
         </div>
     </div>

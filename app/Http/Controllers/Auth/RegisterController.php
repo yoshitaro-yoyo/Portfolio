@@ -58,7 +58,7 @@ class RegisterController extends Controller
                 'municipality' => ['required', 'string', 'max:10'],
                 'address' => ['required', 'string', 'max:15'],
                 'apartments' => ['required', 'string', 'max:20'],
-                'email' => ['email', 'max:128', 'alpha_num','unique:users'],
+                'email' => ['email', 'max:128','unique:users'],
                 'phone_number' => ['required','string','numeric', 'digits_between:1,15'],
             ],
             [   
