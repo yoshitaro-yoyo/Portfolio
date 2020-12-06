@@ -8,8 +8,8 @@
                 <p>〇〇 ××さん</p>
             </ul>
             <ul class="navbar-nav">
-                <a class="text-dark" href="{{ url('/item_search') }}">商品検索</a>
-                <a class="text-dark" href="{{ url('/list_in_cart') }}">カート</a>
+                <a class="text-dark" href="{{ url('/product_search') }}">商品検索</a>
+                <a class="text-dark" href="{{ url('/cart') }}">カート</a>
                 <a class="text-dark" href="{{ url('/order_history') }}">注文履歴</a>
                 <a class="text-dark" href="{{ url('/user_info') }}">ユーザ情報</a>
                 <a class="text-dark" href="{{ url('/logout') }}">ログアウト</a>

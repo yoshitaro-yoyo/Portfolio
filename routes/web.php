@@ -12,27 +12,27 @@
 */
 
 Route::get('/', function () {
-    return view('front/before_login');
-});
-Route::get('/user_regist', function () {
-    return view('○○/user_regist');
+    return view('front/after_login');
 });
 Route::get('/login', function () {
-    return view('○○/login');
+    return view('auth/login');
 });
-Route::get('/item_search', function () {
-    return view('○○/item_search');
+Route::get('/register', function () {
+    return view('auth/register');
 });
-Route::get('/list_in_cart', function () {
-    return view('○○/list_in_cart');
+Route::get('/product_search', function () {
+    return view('shopping/product_search');
+});
+Route::get('/cart', function () {
+    return view('shopping/cart');
 });
 Route::get('/order_history', function () {
-    return view('○○/order_history');
+    return view('shopping/order_history');
 });
 Route::get('/user_info', function () {
-    return view('○○/user_info');
+    return view('users/user_info');
 });
 Route::get('/logout', function () {
-    return view('○○/logout');
+    return view('front/before_login');
 });
 
