@@ -14,12 +14,12 @@
 Route::get('/', function () {
     return view('front/after_login');
 });
-Route::get('/login', function () {
-    return view('auth/login');
-});
-Route::get('/register', function () {
-    return view('auth/register');
-});
+
+/*
+|--------------------------------------------------------------------------
+| headerからの遷移
+|--------------------------------------------------------------------------
+*/
 Route::get('/product_search', function () {
     return view('shopping/product_search');
 });
@@ -36,3 +36,12 @@ Route::get('/logout', function () {
     return view('front/before_login');
 });
 
+/*
+|--------------------------------------------------------------------------
+| 情報修正ボタンからの遷移
+|--------------------------------------------------------------------------
+*/
+
+Route::get('/user_modify', function () {
+    return view('users/user_modify');
+});
