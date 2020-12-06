@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.before_app')
 @section('content')
     <div class="jumbotron text-center bg-white">
         <h2>お客様情報登録</h2>

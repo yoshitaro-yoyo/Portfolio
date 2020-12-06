@@ -16,7 +16,7 @@ class m_User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'last_name', 'first_name', 'zipcode','prefecture','municipality','address','apartments','email', 'phone_number','password',
+         'last_name', 'email', 'password','first_name','zipcode','prefecture','municipality','address','apartments','phone_number',
     ];
 
     /**
@@ -37,10 +37,5 @@ class m_User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    /**
-     * The table associated with the model.
-     *
-     * @var string
-     */
-    protected $table = 'm_users'; 
+    
 }

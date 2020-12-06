@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('auth.register');
+    return view('front/before_login');
 });
 
 //ユーザ登録
