@@ -1,7 +1,7 @@
 <header class="header">
     <nav class="navbar navbar-expand-lg navbar-light">
         <div class="navbar-nav mr-auto">
-            <h1><a class="navbar-brand" href="{{ url('/after_login') }}">やんばるエキスパート</a></h1>
+            <h1><a class="navbar-brand" href="{{ url('/') }}">やんばるエキスパート</a></h1>
         </div>
         <div>
             <ul>
