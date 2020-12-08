@@ -14,7 +14,7 @@ class T_OrdersDetailsTableSeeder extends Seeder
         DB::table('t_orders_details')->insert([
             [
                 'id' => 1,
-                'products_id' => '1',
+                'product_id' => 1,
                 'order_id' => 1,
                 'shipment_status_id' => 1,
                 'order_detail_number' => '20201120',
@@ -23,7 +23,7 @@ class T_OrdersDetailsTableSeeder extends Seeder
             ],
             [
                 'id' => 2,
-                'products_id' => '2',
+                'product_id' => 2,
                 'order_id' => 2,
                 'shipment_status_id' => 2,
                 'order_detail_number' => '20201121',
@@ -32,7 +32,7 @@ class T_OrdersDetailsTableSeeder extends Seeder
             ],
             [
                 'id' => 3,
-                'products_id' => '3',
+                'product_id' => 3,
                 'order_id' => 3,
                 'shipment_status_id' => 3,
                 'order_detail_number' => '20201122',
@@ -41,7 +41,7 @@ class T_OrdersDetailsTableSeeder extends Seeder
             ],
             [
                 'id' => 4,
-                'products_id' => '4',
+                'product_id' => 4,
                 'order_id' => 1,
                 'shipment_status_id' => 1,
                 'order_detail_number' => '20201124',
@@ -50,7 +50,7 @@ class T_OrdersDetailsTableSeeder extends Seeder
             ],
             [
                 'id' => 5,
-                'products_id' => '3',
+                'product_id' => 3,
                 'order_id' => 2,
                 'shipment_status_id' => 3,
                 'order_detail_number' => '20201129',
