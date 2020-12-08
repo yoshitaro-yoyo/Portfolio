@@ -21,7 +21,7 @@
                 </div>
             </section>
             <div class="text-center">
-                <a class="btn btn-primary" href="{{ url('/user_modify') }}" role="button">修正/退会する</a>
+                <a class="btn btn-primary" href="{{ url('/edit') }}" role="button">修正/退会する</a>
             </div>
 
         </main>

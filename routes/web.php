@@ -41,7 +41,4 @@ Route::get('/logout', function () {
 | 情報修正ボタンからの遷移
 |--------------------------------------------------------------------------
 */
-
-Route::get('/user_modify', function () {
-    return view('users/user_modify');
-});
+Route::get('/edit', 'UsersController@index')->name('edit');
