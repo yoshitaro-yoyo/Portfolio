@@ -35,3 +35,4 @@ Route::get('/user_info', function () {
 Route::get('/logout', function () {
     return view('front/before_login');
 });
+
