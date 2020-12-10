@@ -13,8 +13,9 @@ class User extends Authenticatable
      *
      * @var string
      */
+    public $timestamps = false;
     protected $table = 'm_users';
-
+    
     use Notifiable;
 
     /**
@@ -23,7 +24,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'last_name', 'email', 'password','first_name','zipcode','prefecture','municipality','address','apartments','phone_number',
     ];
 
     /**

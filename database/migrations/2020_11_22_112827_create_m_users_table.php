@@ -26,9 +26,9 @@ class CreateMUsersTable extends Migration
             $table->string('apartments',32);
             $table->string('email',128);
             $table->string('phone_number',16);
-            $table->integer('user_classification_id')->unsigned();
+            $table->integer('user_classification_id')->unsigned()->default(3);
             $table->string('company_name',128);
-            $table->char('delete_flag',1);
+            $table->char('delete_flag',1)->default(0);
 
             $table->foreign('user_classification_id')->references('id')->on('m_users_classifications')->onDelete('cascade');
             //ここまで
