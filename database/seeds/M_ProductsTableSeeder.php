@@ -57,7 +57,7 @@ class M_ProductsTableSeeder extends Seeder
                 'sale_status_id' => 4, 
                 'product_status_id' => 4, 
                 'regist_data' => date('Y-m-d H:i:s'), 
-                'user_id' => 4, 
+                'user_id' => 1, 
                 'delete_flag' => ''
             ], 
             [
@@ -69,7 +69,7 @@ class M_ProductsTableSeeder extends Seeder
                 'sale_status_id' => 5, 
                 'product_status_id' => 5, 
                 'regist_data' => date('Y-m-d H:i:s'), 
-                'user_id' => 5, 
+                'user_id' => 2, 
                 'delete_flag' => ''
             ], 
             [
@@ -81,7 +81,7 @@ class M_ProductsTableSeeder extends Seeder
                 'sale_status_id' => 5, 
                 'product_status_id' => 4, 
                 'regist_date' => date('Y-m-d H:i:s'), 
-                'user_id' => 6, 
+                'user_id' => 3, 
                 'delete_flag' => ''
             ], 
         ]);

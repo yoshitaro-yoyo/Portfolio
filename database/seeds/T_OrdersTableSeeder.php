@@ -29,12 +29,12 @@ class T_OrdersTableSeeder extends Seeder
             ],
             [
                 'id' => 4,
-                'user_id' => '4',
+                'user_id' => '1',
                 'order_date' => date('Y-m-d H:i:s'),
             ],
             [
                 'id' => 5,
-                'user_id' => '5',
+                'user_id' => '2',
                 'order_date' => date('Y-m-d H:i:s'),
             ],
         ]);
