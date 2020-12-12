@@ -9,7 +9,7 @@
                 <p>氏名</p>
                 <div class="row">
                     {!! Form::label('last_name', '姓',['class' => 'mt-2 ml-4']) !!}
-                    {!! Form::text('last_name', old('last_name'),['class' => 'form-control  ml-1 col-lg-5']) !!}
+                    {!! Form::text('last_name', old('last_name'),['class' => 'form-control ml-1 col-lg-5']) !!}
                     {!! Form::label('first_name', '名',['class' => 'mt-2 ml-3']) !!}
                     {!! Form::text('first_name', old('first_name'),['class' => 'form-control ml-1 col-lg-5']) !!}
                 </div>
