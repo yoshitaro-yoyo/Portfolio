@@ -11,34 +11,26 @@
 |
 */
 
-Route::get('/', function () {
-    return view('front/after_login');
-});
+Route::get('/', 'UserController@index')->name('top');
 
 /*
 |--------------------------------------------------------------------------
 | headerからの遷移
 |--------------------------------------------------------------------------
 */
-Route::get('/product_search', function () {
-    return view('shopping/product_search');
-});
-Route::get('/cart', function () {
-    return view('shopping/cart');
-});
-Route::get('/order_history', function () {
-    return view('shopping/order_history');
-});
-Route::get('/user_info', function () {
-    return view('users/user_info');
-});
+
 Route::get('/logout', function () {
     return view('front/before_login');
-});
+})->name('logout');
 
 /*
 |--------------------------------------------------------------------------
-| 情報修正ボタンからの遷移
+| 情報修正ボタンからの遷移と更新処理
 |--------------------------------------------------------------------------
 */
-Route::get('/edit', 'UsersController@index')->name('edit');
+
+Route::resource('users', 'UserController', ['only' =>['show', 'edit', 'update', 'destroy']]);
+/*Route::group(['middleware' => 'auth'], function () {
+    Route::resource('users', 'UserController', ['only' =>['show', 'edit', 'update', 'destroy']]);
+});*/
+//ログイン認証を通ったユーザのみが、この内部ルーティングにアクセスできる
