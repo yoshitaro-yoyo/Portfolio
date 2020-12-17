@@ -15,7 +15,7 @@ class User extends Authenticatable
      */
     public $timestamps = false;
     protected $table = 'm_users';
-    
+
     use Notifiable;
 
     /**
