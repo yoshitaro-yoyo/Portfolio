@@ -11,7 +11,7 @@
                 まだアカウントを<br>
                 お持ちでない方はこちら
               </p>
-              <a class="btn btn-primary" href="{{ url('/register') }}" role="button">新規登録</a>
+              <a role="button">{!! link_to_route('signup', '新規登録', [], ['class' => 'btn btn-primary']) !!}</a>
             </div>
               <div class="mt-3 mx-3 text-center">
               <p>
