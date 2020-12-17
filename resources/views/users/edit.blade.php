@@ -4,151 +4,89 @@
 
     <main>
         <h2 class="text-center my-4">ユーザ情報修正</h2>
-        {!! Form::open(['route' => ['method' => 'PUT', 'users.update', $user->id]]) !!}
-            {{csrf_field()}}
-            {{ method_field('PUT') }}
-            <fieldset class="mb-4">
-                <table width="50%" style="margin-left:350px">
-                    <tr height="40">
-                        <td align="center">氏名</td>
-                        <td>
-                            {!! Form::label('first_name', '姓') !!}
-                            {!! Form::text('first_name', $user->first_name); !!}
-                            
-                                <span style="margin-right:35px"></span>名
-                            <input
-                                id="last_name"
-                                name="last_name"
-                                value="{{$user->last_name}}"
-                                type="text"
-                                style="margin-left:10px"
-                                maxlength="10"
-                                required placeholder="✕✕"
-                            >
-                        </td>
-                    </tr>
-                    <tr height="40">
-                        <td align="center">住所<span style="float: right">〒</span></td>
-                        <td colspan="2">
-                            <input
-                                id="zipcode"
-                                name="zipcode"
-                                value="{{$user->zipcode}}"
-                                type="text"
-                                style="margin-left:10px"
-                                size="25"
-                                pattern="\d{3}-?\d{4}"
-                                required placeholder="〇〇〇〇〇〇〇"
-                            >
-                        </td>
-                    </tr>
-                    <tr height="40">
-                        <td align="right">都道府県</td>
-                        <td colspan="2">
-                            <input
-                                id="prefecture"
-                                name="prefecture"
-                                value="{{$user->prefecture}}"
-                                type="text"
-                                style="margin-left:10px"
-                                size="50"
-                                maxlength="5"
-                                required placeholder="〇〇県"
-                            >
-                        </td>
-                    </tr>
-                    <tr height="40">
-                        <td align="right">市町村区</td>
-                        <td colspan="2">
-                            <input
-                                id="municipality"
-                                name="municipality"
-                                value="{{$user->municipality}}"
-                                type="text"
-                                style="margin-left:10px"
-                                size="50"
-                                maxlength="10"
-                                required placeholder="〇〇市"
-                            >
-                        </td>
-                    </tr>
-                    <tr height="40">
-                        <td align="right">番地</td>
-                        <td colspan="2">
-                            <input
-                                id="address"
-                                name="address"
-                                value="{{$user->address}}"
-                                type="text"
-                                style="margin-left:10px"
-                                size="50"
-                                maxlength="15"
-                                required placeholder="○○  ○-○-○"
-                            >
-                        </td>
-                    </tr>
-                    <tr height="40">
-                        <td align="right">マンション<br>部屋番号</br></td>
-                        <td colspan="2">
-                            <input
-                                id="apartments"
-                                name="apartments"
-                                value="{{$user->apartments}}"
-                                type="text"
-                                style="margin-left:10px"
-                                size="50"
-                                maxlength="20"
-                                required
-                            >
-                        </td>
-                    </tr>
-                    <tr height="40">
-                        <td align="center">メールアドレス</td>
-                        <td colspan="2">
-                            <input
-                                id="email"
-                                name="email"
-                                value="{{$user->email}}"
-                                type="email"
-                                style="margin-left:10px"
-                                size="65"
-                                placeholder="User@example.com"
-                            >
-                        </td>
-                    </tr>
-                    <tr height="40">
-                        <td align="center">電話番号</td>
-                        <td colspan="2">
-                            <input
-                                id="phone_number"
-                                name="phone_number"
-                                value="{{$user->phone_number}}"
-                                type="text"
-                                style="margin-left:10px"
-                                size="65"
-                                pattern="(^[0-9]+$){1,15}"
-                                required placeholder="〇〇〇〇〇〇〇〇〇〇〇"
-                            >
-                        </td>
-                    </tr>
-                </table>
 
-                <div class="text-center mt-5">
-                    <button class="btn btn-primary  w-25 mr-5" type="submit">修正</button>
-                </div>
-            </fieldset>
-        {!! Form::close() !!}
+        <div class="row my-5 ml-5">
+            <div class="col-sm-7 mx-auto">
 
-        <div class="text-center mt-5">
-            {!! Form::open(['route' => ['users.destroy', $user->id]]) !!}
-                <fieldset>
-                    {{csrf_field()}}
-                    {{method_field('DELETE')}}
-                    <button class="btn btn-danger  w-25 mr-5">退会</button>
-                </fieldset>
-            {!! Form::close() !!}
+                {!! Form::open(['route' => ['users.update', $user->id, 'class' => 'd-inline']]) !!}
+				{{ method_field('PUT') }}
+
+				<div class="form-group-sm">
+					<div class="ml-3 mb-4">
+						<label for="col-sm-6 col-form-label" class="mr-5">氏名</label>
+						{!! Form::label('first_name', '　　　姓', ['class' => 'd-inline']) !!}
+						{!! Form::text('first_name', $user->first_name, ['class' => 'form-control d-inline col-sm-3']) !!}
+						{!! Form::label('last_name', '名', ['class' => 'd-inline ml-3']) !!}
+						{!! Form::text('last_name', $user->last_name, ['class' => 'form-control d-inline col-sm-3']) !!}
+					</div>
+				</div>
+
+				<div class="form-group-sm">
+					<div class="ml-3 mb-4">
+					<label for="col-sm-4 col-form-label" class="mr-5">住所</label>
+						{!! Form::label('zipcode', '　　　〒', ['class' => 'd-inline']) !!}
+						{!! Form::text('zipcode', $user->zipcode, ['class' => 'form-control d-inline col-sm-4']) !!}
+					</div>
+				</div>
+
+				<div class="form-group-sm">
+					<div class="mb-4">
+						{!! Form::label('prefecture', '　　　都道府県', ['class' => 'col-form-label ml-5']) !!}
+						{!! Form::text('prefecture', $user->prefecture, ['class' => 'form-control d-inline col-sm-5']) !!}
+					</div>
+				</div>
+
+				<div class="form-group-sm">
+					<div class="mb-4">
+						{!! Form::label('municipality', '　　　市町村区', ['class' => 'col-form-label ml-5']) !!}
+						{!! Form::text('municipality', $user->municipality, ['class' => 'form-control d-inline col-sm-5']) !!}
+					</div>
+				</div>
+
+				<div class="form-group-sm">
+					<div class="mb-4">
+						{!! Form::label('address', '　　　　　番地', ['class' => 'col-form-label ml-5']) !!}
+						{!! Form::text('address', $user->address, ['class' => 'form-control d-inline col-sm-5']) !!}
+					</div>
+				</div>
+
+				<div class="form-group-sm">
+					<div class="mb-4">
+						{!! Form::label('apartments', '　　　部屋番号', ['class' => 'col-form-label ml-5']) !!}
+						{!! Form::text('apartments', $user->apartments, ['class' => 'form-control d-inline col-sm-5']) !!}
+					</div>
+				</div>
+
+				<div class="form-group-sm">
+					<div class="mb-4">
+						{!! Form::label('email', 'メールアドレス　　　', ['class' => 'col-form-label mr-1']) !!}
+						{!! Form::text('email', $user->email, ['class' => 'form-control d-inline col-sm-7']) !!}
+					</div>
+				</div>
+
+				<div class="form-group-sm">
+					<div class="mb-4">
+						{!! Form::label('phone_number', '電話番号　　　', ['class' => 'col-form-label mr-5']) !!}
+						{!! Form::text('phone_number', $user->phone_number, ['class' => 'form-control d-inline col-sm-7']) !!}
+					</div>
+				</div>
+
+				<div class="btn-group ml-5" style="text-align:center" role="group" >
+					<div class="mt-5 ml-5">
+						<button class="btn btn-primary mr-5 ml-5"type="submit">　　修　正　　</button>
+					</div>
+
+					{!! Form::close() !!}
+
+					<div class="mt-5 ml-5">
+						{!! Form::open(['route' => ['users.destroy', $user->id, 'class' => 'd-inline']]) !!}
+							{{method_field('DELETE')}}
+							<button class="btn btn-danger mr-5 ml-5">　　退　会　　</button>
+						{!! Form::close() !!}
+					</div>
+				</div>
+			</div>
         </div>
     </main>
 
 @endsection
-<div class="row mt-5"></div>
