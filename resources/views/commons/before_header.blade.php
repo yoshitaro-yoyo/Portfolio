@@ -7,7 +7,7 @@
             <ul>
                 <li>
                     <a class="text-dark" href="{{ url('/login') }}"> ログイン </a>
-                    <a class="text-dark" href="{{ url('/register') }}"> 新規登録 </a>
+                    <a class="text-dark">{!! link_to_route('signup', '新規登録', [], []) !!}</a>
                 </li>
             </ul>
         </div>
