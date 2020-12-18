@@ -19,9 +19,15 @@ Route::get('/', 'UserController@index')->name('top');
 |--------------------------------------------------------------------------
 */
 
-Route::get('/logout', function () {
-    return view('front/before_login');
-})->name('logout');
+Route::get('/', function () {
+    return view('front/after_login');
+});
+Route::get('/login', function () {
+    return view('auth/login');
+});
+Route::get('/register', function () {
+    return view('auth/register');
+
 
 /*
 |--------------------------------------------------------------------------
