@@ -23,7 +23,7 @@
 
 				<div class="form-group-sm">
 					<div class="ml-3 mb-4">
-					<label for="col-sm-4 col-form-label" class="mr-5">住所</label>
+						<label for="col-sm-4 col-form-label" class="mr-5">住所</label>
 						{!! Form::label('zipcode', '　　　〒', ['class' => 'd-inline']) !!}
 						{!! Form::text('zipcode', $user->zipcode, ['class' => 'form-control d-inline col-sm-4']) !!}
 					</div>
@@ -80,8 +80,8 @@
 
 					<div class="mt-5 ml-5">
 						{!! Form::open(['route' => ['users.destroy', $user->id, 'class' => 'd-inline']]) !!}
-							{{method_field('DELETE')}}
-							<button class="btn btn-danger mr-5 ml-5">　　退　会　　</button>
+						{{method_field('DELETE')}}
+						<button class="btn btn-danger mr-5 ml-5">　　退　会　　</button>
 						{!! Form::close() !!}
 					</div>
 				</div>

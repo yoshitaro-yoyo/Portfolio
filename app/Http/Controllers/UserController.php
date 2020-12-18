@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\CreateUserRequest;
-use Illuminate\Validation\Rule;//emailカラムをuniqueで更新するのクラス
-use App\User;//Modelの読み込みを宣言する
+use Illuminate\Validation\Rule;
+use App\User;
 
 class UserController extends Controller
 {
@@ -61,7 +61,7 @@ class UserController extends Controller
 	public function edit($id)
 	{
 		$user = User::findOrFail($id);
-		//変数userにUserモデルを用いてテーブルデータを呼び出す
+		//idが$idの値と同じUserモデルのインスタンスを取得して$userに格納
 		return view('users.edit', ['user' => $user]);
 		//viewにデータを配列の形で渡すように明示
 	}
