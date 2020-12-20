@@ -11,6 +11,7 @@
 |
 */
 
+
 Route::get('/', 'UserController@index')->name('top');
 
 /*
@@ -19,9 +20,6 @@ Route::get('/', 'UserController@index')->name('top');
 |--------------------------------------------------------------------------
 */
 
-Route::get('/', function () {
-    return view('front/after_login');
-});
 Route::get('/login', function () {
     return view('auth/login');
 });
@@ -38,7 +36,7 @@ Route::get('/register', function () {
 
 Route::resource('users', 'UserController', ['only' =>['show', 'edit', 'update', 'destroy']]);
 
-//ログイン認証を通ったユーザのみが、この内部ルーティングにアクセスできる
+//ログイン認証を通ったユーザのみが、この内部ルーティングにアクセスできる.認証機能のmarge後に解放
 /*Route::group(['middleware' => 'auth'], function () {
     Route::resource('users', 'UserController', ['only' =>['show', 'edit', 'update', 'destroy']]);
 });*/
