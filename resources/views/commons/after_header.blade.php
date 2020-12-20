@@ -11,7 +11,7 @@
                 <a class="text-dark" href="{{ url('/cart') }}">カート</a>
                 <a class="text-dark" href="{{ url('/order_history') }}">注文履歴</a>
                 <a class="text-dark">{!! link_to_route('users.show', 'ユーザ情報', ['user' => $user], []) !!}</a>
-                <a class="text-dark" href="{{ route('logout') }}">ログアウト</a>
+                <a class="text-dark" href="{{ url('/logout') }}">ログアウト</a>
             </ul>
         </div>
     </nav>
