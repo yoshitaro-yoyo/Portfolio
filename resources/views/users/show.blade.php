@@ -34,7 +34,7 @@
             </div>
         </section>
         <div class="text-center">
-            <a class="btn btn-primary" {!! link_to_route('users.edit', '修正/退会する', ['user' => $user], []) !!}</a>
+            <a class="btn btn-primary" href="{{ route('users.edit', ['user' => $user]) }}">修正/退会する</a>
         </div>
 
     </main>
