@@ -109,11 +109,10 @@ return [
     | of "email". This simply helps us make messages a little cleaner.
     |
     */
-    //修正前
-    'attributes' => [],
-    //修正後
+
+
     'attributes' => [
         'email' => 'メールアドレス',
         'password' => 'パスワード',
-        ],
+    ],
 ];
