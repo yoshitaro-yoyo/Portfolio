@@ -39,3 +39,7 @@ Route::get('/logout', function () {
 //ユーザ登録
 Route::get('signup','Auth\RegisterController@showRegistrationForm')->name('signup');
 Route::post('signup','Auth\RegisterController@register')->name('signup.post');
+
+//商品詳細
+Route::get('prodInfo/{id}', 'ProductController@show')->name('detail.show');
+//Route::resource('prodInfo', 'ProductController', ['only' =>['show']]); 
