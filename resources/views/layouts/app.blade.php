@@ -11,7 +11,7 @@
 
     <body>
 
-        @include('commons.after_header')
+        @include('commons.header')
 
         <div class="wrap">
 
