@@ -6,12 +6,30 @@
         <div class="container">
             <div class="jumbotron bg-white">
                 <h1 class="text-center">商品情報</h1>
-                <h3 class="my-4 text-center">{{$product->product_name}}</h3>
+                <h3 class="my-4 text-center">
+                    @if(isset($product->product_name))
+                        {{ $product->product_name }}
+                    @endif
+                </h3>
                 <div class="offset-sm-3">
-                    <p class="offset-sm-6">商品カテゴリ：{{$category_name->category_name}}</p>
+                    <p class="offset-sm-6">
+                        商品カテゴリ：
+                        @if(isset($category_name->category_name))
+                        {{ $category_name->category_name }}
+                    @endif
+                    </p>
                     <p>商品説明</p>
-                    <p>{{$product->description}}</p>
-                    <p class="mt-4 mb-5">価格：{{$product->price}}円</p>
+                    <p>
+                        @if(isset($product->description))
+                            {{ $product->description }}
+                        @endif
+                    </p>
+                    <p class="mt-4 mb-5">価格：
+                        @if(isset($product->price))
+                        {{ $product->price }}
+                        @endif
+                        円
+                    </p>
                 </div>
                 <div class="form-row justify-content-center">
                     <label for="order_quanity" class="mt-1">購入個数</label>

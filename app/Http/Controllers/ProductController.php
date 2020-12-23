@@ -53,7 +53,7 @@ class ProductController extends Controller
         //productのcategory_idを取得し、Category.phpを経由し該当idが所有するカテゴリー名を取得する(リレーション)
         $category_name = Category::findOrFail($product->category_id);
 
-        return view('products.prodInfo', compact('product', 'category_name'));
+        return view('products.prodinfo', compact('product', 'category_name'));
     }
 
     /**
