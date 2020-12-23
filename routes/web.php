@@ -20,11 +20,17 @@ Route::get('/', 'UserController@index')->name('top');
 |--------------------------------------------------------------------------
 */
 
+Route::get('/', function () {
+    return view('front/before_login');
+});
 Route::get('/login', function () {
     return view('auth/login');
 });
 Route::get('/register', function () {
     return view('auth/register');
+});
+Route::get('/logout', function () {
+    return view('front/before_login');
 });
 
 
@@ -36,10 +42,10 @@ Route::get('/register', function () {
 
 Route::resource('users', 'UserController', ['only' =>['show', 'edit', 'update', 'destroy']]);
 
-//ログイン認証を通ったユーザのみが、この内部ルーティングにアクセスできる.認証機能のmarge後に解放
-/*Route::group(['middleware' => 'auth'], function () {
+//ログイン認証を通ったユーザのみが、この内部ルーティングにアクセスできる.認証機能のmarge後に解
+Route::group(['middleware' => 'auth'], function () {
     Route::resource('users', 'UserController', ['only' =>['show', 'edit', 'update', 'destroy']]);
-});*/
+});
 
 /*
 |--------------------------------------------------------------------------
@@ -48,3 +54,11 @@ Route::resource('users', 'UserController', ['only' =>['show', 'edit', 'update', 
 */
 Route::get('signup','Auth\RegisterController@showRegistrationForm')->name('signup');
 Route::post('signup','Auth\RegisterController@register')->name('signup.post');
+
+/*
+|--------------------------------------------------------------------------
+| 認証系のルーティング
+|--------------------------------------------------------------------------
+*/
+Auth::routes();
+Route::get('/home', 'HomeController@index')->name('home');
