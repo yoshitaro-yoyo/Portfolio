@@ -12,25 +12,13 @@
 */
 
 Route::get('/', function () {
-    return view('front/after_login');
+    return view('front/before_login');
 });
 Route::get('/login', function () {
     return view('auth/login');
 });
 Route::get('/register', function () {
     return view('auth/register');
-});
-Route::get('/product_search', function () {
-    return view('shopping/product_search');
-});
-Route::get('/cart', function () {
-    return view('shopping/cart');
-});
-Route::get('/order_history', function () {
-    return view('shopping/order_history');
-});
-Route::get('/user_info', function () {
-    return view('users/user_info');
 });
 Route::get('/logout', function () {
     return view('front/before_login');
@@ -40,6 +28,11 @@ Route::get('/logout', function () {
 Route::get('signup','Auth\RegisterController@showRegistrationForm')->name('signup');
 Route::post('signup','Auth\RegisterController@register')->name('signup.post');
 
+//認証系のルーティング
+Auth::routes();
+Route::get('/home', 'HomeController@index')->name('home');
+
 //商品詳細
-Route::get('prodInfo/{id}', 'ProductController@show')->name('detail.show');
-//Route::resource('prodInfo', 'ProductController', ['only' =>['show']]); 
+Route::resource('cartlist', 'ProductController', ['only' => ['index']]);
+Route::get('prodinfo/{id}', 'ProductController@show')->name('prodinfo.show');
+Route::post('prodinfo/addcart','ProductController@addCart')->name('addcart.post');
