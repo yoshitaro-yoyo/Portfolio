@@ -1,4 +1,4 @@
-@extends('layouts.before_app')
+@extends('layouts.app')
 @section('content')
     <div class="jumbotron text-center bg-white">
         <h2>お客様情報登録</h2>
@@ -29,7 +29,7 @@
                     </div>
                     <div class="row">
                         {!! Form::label('address', '番地',['class' => 'mt-2 ml-4']) !!}
-                        {!! Form::text('address', old('address'),['class' => 'form-control col-lg-9 mt-1 ml-5']) !!} 
+                        {!! Form::text('address', old('address'),['class' => 'form-control col-lg-9 mt-1 ml-5']) !!}
                     </div>
                     <div class="form-group">
                         {!! Form::label('apartments', 'マンション・部屋番号',['class' => 'mt-1 ml-2']) !!}
