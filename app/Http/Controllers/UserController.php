@@ -6,9 +6,11 @@ use Illuminate\Http\Request;
 use App\Http\Requests\CreateUserRequest;
 use Illuminate\Validation\Rule;
 use App\User;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
@@ -16,7 +18,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('front.before_login');
+        //
     }
 
     /**
@@ -48,8 +50,14 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        $user = User::findOrFail($id);
-        return view('users.show', ['user' => $user]);
+        $user = Auth::user();
+        //policy → HTTPレスポンスのthrowを避ける
+        if($user->can('view', $user)) {
+            return view('users.show', compact('user'));
+        } else {
+            return back();
+        }
+
     }
 
     /**
@@ -60,10 +68,13 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $user = User::findOrFail($id);
-        //idが$idの値と同じUserモデルのインスタンスを取得して$userに格納
-        return view('users.edit', ['user' => $user]);
-        //viewにデータを配列の形で渡すように明示
+        $user = Auth::user();
+
+        if($user->can('edit', $user)) {
+            return view('users.edit', compact('user'));
+        } else {
+            return back();
+        }
     }
 
     /**
@@ -87,9 +98,14 @@ class UserController extends Controller
             'phone_number' => ['required', 'string', 'numeric', 'digits_between:1,15'], 
         ]);
 
-        $user = User::findOrFail($id);
-        $user->fill($params)->save();
-        return redirect()->route('users.show', ['user' => $user]);
+        $user = Auth::user();
+
+        if($user->can('update', $user)) {
+            $user->fill($params)->save();
+            return redirect()->route('users.show',  compact('user'));
+        } else {
+            return back();
+        }
     }
 
     /**
@@ -100,8 +116,12 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        $user = User::findOrFail($id);
-        $user->delete();
-        return redirect()->route('top');
+        $user = Auth::user();
+        if($user->can('delete', $user)) {
+            $user->delete();
+            return redirect()->route('top');
+        } else {
+            return back();
+        }
     }
 }
