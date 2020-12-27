@@ -12,7 +12,7 @@
 */
 
 
-Route::get('/', 'UserController@index')->name('top');
+
 
 /*
 |--------------------------------------------------------------------------
@@ -29,9 +29,10 @@ Route::get('/login', function () {
 Route::get('/register', function () {
     return view('auth/register');
 });
+//UserControllerのdestroyメソッドにあるredirectにて使用中
 Route::get('/logout', function () {
     return view('front/before_login');
-});
+})->name('top');
 
 
 /*
@@ -40,9 +41,7 @@ Route::get('/logout', function () {
 |--------------------------------------------------------------------------
 */
 
-Route::resource('users', 'UserController', ['only' =>['show', 'edit', 'update', 'destroy']]);
-
-//ログイン認証を通ったユーザのみが、この内部ルーティングにアクセスできる.認証機能のmarge後に解
+//ログイン認証を通ったユーザのみが、この内部ルーティングにアクセスできる.
 Route::group(['middleware' => 'auth'], function () {
     Route::resource('users', 'UserController', ['only' =>['show', 'edit', 'update', 'destroy']]);
 });
