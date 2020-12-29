@@ -24,7 +24,17 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'last_name', 'email', 'password','first_name','zipcode','prefecture','municipality','address','apartments','phone_number',
+        'password', 
+        'last_name', 
+        'first_name', 
+        'zipcode', 
+        'prefecture', 
+        'municipality', 
+        'address', 
+        'apartments', 
+        'email', 
+        'phone_number', 
+        'company_name', 
     ];
 
     /**
@@ -33,7 +43,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password', 'remember_token', 
     ];
 
     /**
@@ -42,6 +52,6 @@ class User extends Authenticatable
      * @var array
      */
     protected $casts = [
-        'email_verified_at' => 'datetime',
+        'email_verified_at' => 'datetime', 
     ];
 }
