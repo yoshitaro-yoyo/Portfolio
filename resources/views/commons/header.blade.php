@@ -14,7 +14,7 @@
             <ul class="navbar-nav">
                 <a class="text-dark" href="{{ url('/product_search') }}">商品検索</a>
                 <a class="text-dark" href="{{ url('/cart') }}">カート</a>
-                <a class="text-dark" href="{{ url('/order_history') }}">注文履歴</a>
+                <a class="text-dark" href="{{ route('orders.index') }}">注文履歴</a>
                 <a class="text-dark" href="{{ route('users.show', ['id' => Auth::user()]) }}">ユーザー情報</a>
                 <a
                     class="text-dark"
