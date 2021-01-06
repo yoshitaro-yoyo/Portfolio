@@ -10,9 +10,15 @@ class Product extends Model
 
     public $timestamps = false;
 
-    //カテゴリーIDに関連する商品カテゴリー情報を取得する()
+    //カテゴリーIDに関連する商品カテゴリー情報を取得する
     public function category()
     {
         return $this->belongsTo('Category::class');
+    }
+
+    //ユーザ情報にProduct情報を紐付ける
+    public function users()
+    {
+        return $this->belongsTo('User::class');
     }
 }
