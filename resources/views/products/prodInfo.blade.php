@@ -15,8 +15,8 @@
                     <p class="offset-sm-6">
                         商品カテゴリ：
                         @if(isset($category_name->category_name))
-                        {{ $category_name->category_name }}
-                    @endif
+                            {{ $category_name->category_name }}
+                        @endif
                     </p>
                     <p>商品説明</p>
                     <p>
@@ -26,23 +26,32 @@
                     </p>
                     <p class="mt-4 mb-5">価格：
                         @if(isset($product->price))
-                        {{ $product->price }}
+                            {{ $product->price }}
                         @endif
                         円
                     </p>
                 </div>
-                <div class="form-row justify-content-center">
-                    <label for="order_quanity" class="mt-1">購入個数</label>
-                    <div class="form-group col-sm-1">
-                        <div class="ml-1">
-                            <input type="text" class="form-control" id="order_quanity" pattern="[1-9][0-9]*" min="1">
+
+                {!! Form::open(['route' => ['addcart.post', 'class' => 'd-inline']]) !!}
+
+                    {{-- 画面遷移時にPOST送信 session保存に使用 --}}
+                    {{ Form::hidden('products_id', $product->id) }}
+                    {{ Form::hidden('users_id', $user->id) }}
+
+                    <div class="form-row justify-content-center">
+                        {!! Form::label('prodqty', '購入個数', ['class' => 'mt-1']) !!}
+                        <div class="form-group col-sm-1">
+                            <div class="ml-1">
+                                <input type="text" name="prodqty" class="form-control" id="prodqty" pattern="[1-9][0-9]*" min="1">
+                            </div>
+                        </div>
+                        {!! Form::label('', '個', ['class' => 'mt-1 mr-3']) !!}
+                        <div class="form-group">
+                            {!! Form::submit('カートへ', ['class' => 'btn btn-primary']) !!}
                         </div>
                     </div>
-                    <label class="mt-1 mr-3">個</label>
-                    <div class="form-group">
-                        <button type="button" class="btn btn-primary">カートへ</button>
-                    </div>
-                </div>
+                {!! Form::close() !!}
+
             </div>
         </div>
     </main>
