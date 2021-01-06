@@ -33,9 +33,6 @@ class ProductController extends Controller
         return redirect('cartlist');
     }
 
-    // 指定したデータをセッションから取得後、そのデータを削除する
-    //$value = $request->session()->pull('key', 'default’);
-
     /**
      * Display a listing of the resource.
      *
