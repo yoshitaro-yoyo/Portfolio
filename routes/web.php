@@ -32,7 +32,10 @@ Route::post('signup','Auth\RegisterController@register')->name('signup.post');
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
-//商品詳細
+//商品詳細関連
 Route::resource('cartlist', 'ProductController', ['only' => ['index']]);
 Route::get('prodinfo/{id}', 'ProductController@show')->name('prodinfo.show');
 Route::post('prodinfo/addcart','ProductController@addCart')->name('addcart.post');
+Route::get('/noProduct', function () {
+    return view('products/noproduct');
+})->name('noProd');
