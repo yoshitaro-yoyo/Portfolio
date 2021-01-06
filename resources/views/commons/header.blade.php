@@ -8,7 +8,7 @@
             <p>{{ !empty(Auth::user()) ? Auth::user()->last_name . Auth::user()->first_name : 'ユーザー' }} さん</p>
             <ul class="navbar-nav">
                 <a class="text-dark" href="{{ url('/product_search') }}">商品検索</a>
-                <a class="text-dark" href="{{ url('/cart') }}">カート</a>
+                <a class="text-dark" href="{{ url('/cartlist') }}">カート</a>
                 <a class="text-dark" href="{{ url('/order_history') }}">注文履歴</a>
                 <a class="text-dark" href="{{ url('/user_info') }}">ユーザ情報</a>
                 <a class="text-dark" href="{{ route('logout') }}" onclick="event.preventDefault();
