@@ -12,9 +12,9 @@ class Category extends Model
 
     protected $fillable = ['id', 'category_name', ];
     
-    //商品カテゴリー情報に関連するカテゴリーIDを取得する(1:1)
+    //商品カテゴリー情報に関連するカテゴリーIDを取得する
     public function products()
     {
-        return $this->hasOne('Product::class');
+        return $this->hasmany('Product::class');
     }
 }
