@@ -17,6 +17,7 @@ class CreateTOrdersTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('user_id');
             $table->timestamp('order_date');
+            $table->string('order_number',64);
 
             $table->foreign('user_id')->references('id')->on('m_users')->onDelete('cascade');
         });
