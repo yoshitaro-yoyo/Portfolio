@@ -18,7 +18,6 @@ class CreateTOrdersDetailsTable extends Migration
             $table->unsignedInteger('product_id');
             $table->unsignedInteger('order_id');
             $table->unsignedInteger('shipment_status_id');
-            $table->string('order_detail_number',64);
             $table->integer('order_quantity');
             $table->timestamp('shipment_date');
 
