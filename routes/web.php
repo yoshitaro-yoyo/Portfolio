@@ -45,7 +45,7 @@ Route::get('/logout', function () {
 Route::group(['middleware' => 'auth'], function () {
     Route::resource('users', 'UserController', ['only' =>['show', 'edit', 'update', 'destroy']]);
     Route::resource('orders', 'OrdersController', ['only' =>['index']]);
-    Route::resource('shipmentsStatuses', 'ShipmentsStatusesController', ['only' =>['index']]);
+    Route::resource('searchOrders', 'OrdersController', ['only' =>['show']]);
 });
 
 /*

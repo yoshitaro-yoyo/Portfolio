@@ -8,7 +8,7 @@ class Order extends Model
 {
     protected $table = 't_orders';
 
-    protected $fillable = ['user_id','order_date'];
+    protected $fillable = ['user_id','order_date','order_number'];
 
     public function users()
     {
@@ -19,5 +19,4 @@ class Order extends Model
     {
         return $this->hasMany(OrderDetail::class);
     }
-
 }

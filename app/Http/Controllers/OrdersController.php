@@ -4,10 +4,6 @@ namespace App\Http\Controllers;
 
 use App\User;
 use App\Order;
-use App\OrderDetail;
-use App\ShipmentStatus;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 class OrdersController extends Controller
@@ -20,10 +16,8 @@ class OrdersController extends Controller
     public function index(Request $request)
     {
         $user = $request->user();
-        $orders = Order::with('orderDetails.shipmentStatuses')->orderBy('order_date','desc')->paginate(15);
+        $orders = $user->orders()->orderBy('order_date','desc')->paginate(15);
         return view('shopping.order_history',compact('user','orders'));
-        
-        
     }
 
     /**
@@ -55,7 +49,10 @@ class OrdersController extends Controller
      */
     public function show($id)
     {
-        //
+        $user = User::find($id);
+        $targetDate = today()->subMonth(3);
+        $recentlyOrders = $user->orders()->where('order_date','>',$targetDate)->orderBy('order_date','desc')->paginate(15);
+        return view('shopping.search_order_history',compact('user','recentlyOrders'));
     }
 
     /**

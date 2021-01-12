@@ -8,7 +8,7 @@ class OrderDetail extends Model
 {
     protected $table = 't_orders_details';
 
-    protected $fillable = ['order_id','shipment_status_id','order_detail_number','order_quantity','shipment_date'];
+    protected $fillable = ['product_id','order_id','shipment_status_id','order_quantity'];
 
 
     public function shipmentStatuses()
@@ -16,4 +16,8 @@ class OrderDetail extends Model
         return $this->belongsTo(ShipmentStatus::class);
     }
 
+    public function products()
+    {
+        return $this->belongsTo(Product::class);
+    }
 }
