@@ -24,6 +24,10 @@ class M_ShipmentsStatusesTableSeeder extends Seeder
                 'id' => 3,
                 'shipment_status_name' => '発送済',
             ],
+            [
+                'id' => 4,
+                'shipment_status_name' => 'キャンセル',
+            ],
         ]);
     }
 }
