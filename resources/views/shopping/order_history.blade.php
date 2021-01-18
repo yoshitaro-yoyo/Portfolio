@@ -1,7 +1,12 @@
 @extends('layouts.app')
 
 @section('content')
-    @if(isset($orders))
+    @php    
+        foreach($orders as $order){
+            $orderDetails = $order->orderDetails();
+        }
+    @endphp
+    @if(isset($orderDetails))
         <div class="container my-4">
             <a href="{{ action('OrdersController@show', $user->id) }}" class="btn btn-secondary btn-sm">直近3ヶ月の注文を表示</a>
         </div>
@@ -32,6 +37,7 @@
                                 @php
                                     $ready = 0;
                                     $shipped = 0;
+                                    $cancel = 0;
                                     $orderDetailCount = 0;
                                     foreach( $order->orderDetails as $orderDetail ){
                                         $shipmentStatusId = $orderDetail->shipment_status_id;
@@ -39,6 +45,8 @@
                                             $ready += 1;
                                         }elseif($shipmentStatusId === 3){
                                             $shipped += 1;
+                                        }elseif($shipmentStatusId === 4){
+                                            $cancel += 1;
                                         }
                                     }
                                     $orderDetailCount = $order->orderDetails()->count();
@@ -46,7 +54,9 @@
                                 @if($orderDetailCount === $shipped)
                                     注文状態：発送済
                                 @elseif($orderDetailCount === $ready)
-                                    注文状態：発送準備完了 
+                                    注文状態：発送準備完了
+                                @elseif($orderDetailCount === $cancel)
+                                    注文状態：キャンセル
                                 @else
                                     注文状態：準備中
                                 @endif

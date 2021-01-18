@@ -21,7 +21,7 @@
             @endphp
             @foreach($recentlyOrders as $recentlyOrder)
                 <tr>
-                    <th class="font-weight-normal" scope="row">{{ $orderNumber += 1 }}</th>
+                <th class="font-weight-normal" scope="row">{{ $orderNumber += 1 }}</th>
                     <td class="text-left">{{ $recentlyOrder->order_number }}</td>
                     <td class="text-left">
                         {{ $user->zipcode }}<br />{{ $user->prefecture }}{{ $user->municipality }}{{ $user->address }}　{{ $user->apartments }}<br />{{ $user->last_name }}　{{ $user->first_name }}　様
@@ -31,6 +31,7 @@
                         @php
                             $ready = 0;
                             $shipped = 0;
+                            $cancel = 0;
                             $orderDetailCount = 0;
                             foreach( $recentlyOrder->orderDetails as $orderDetail ){
                                 $shipmentStatusId = $orderDetail->shipment_status_id;
@@ -38,6 +39,8 @@
                                     $ready += 1;
                                 }elseif($shipmentStatusId === 3){
                                     $shipped += 1;
+                                }elseif($shipmentStatusId === 4){
+                                            $cancel += 1;
                                 }
                             }
                             $orderDetailCount = $recentlyOrder->orderDetails()->count();
@@ -45,7 +48,9 @@
                         @if($orderDetailCount === $shipped)
                             注文状態：発送済
                         @elseif($orderDetailCount === $ready)
-                            注文状態：発送準備完了 
+                            注文状態：発送準備完了
+                        @elseif($orderDetailCount === $cancel)
+                            注文状態：キャンセル
                         @else
                             注文状態：準備中
                         @endif
@@ -61,4 +66,4 @@
         {{ $recentlyOrders->links() }}
     </div>
 </div>
-@endsection
+@endsection 
