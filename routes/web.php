@@ -44,9 +44,9 @@ Route::get('/logout', function () {
 //ログイン認証を通ったユーザのみが、この内部ルーティングにアクセスできる.
 Route::group(['middleware' => 'auth'], function () {
     Route::resource('users', 'UserController', ['only' =>['show', 'edit', 'update', 'destroy']]);
-
-
-    Route::resource('orderDetails', 'OrderDetailsController', ['only' =>['show','update']]);
+    Route::resource('orders', 'OrdersController', ['only' =>['index']]);
+    Route::resource('searchOrders', 'OrdersController', ['only' =>['show']]);
+    Route::resource('orderDetails', 'OrderDetailsController', ['only' =>['show','edit']]);
 });
 
 /*

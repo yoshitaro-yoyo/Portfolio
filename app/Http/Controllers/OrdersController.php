@@ -4,19 +4,21 @@ namespace App\Http\Controllers;
 
 use App\User;
 use App\Order;
-use App\OrderDetail;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
-class OrderDetailsController extends Controller
+class OrdersController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $user = $request->user();
+        $orders = $user->orders()->orderBy('order_date','desc')->paginate(15);
+        return view('shopping.order_history',compact('user','orders'));
     }
 
     /**
@@ -46,14 +48,12 @@ class OrderDetailsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request,$id)
+    public function show($id)
     {
-        $order = Order::find($id);
-        $userId = $order->user_id;
-        $user = User::find($userId);
-        $logInUser = $request->user();
-        $orderDetails = OrderDetail::all();
-        return view('shopping.order_detail',compact('user','logInUser','order','orderDetails'));
+        $user = User::find($id);
+        $targetDate = today()->subMonth(3);
+        $recentlyOrders = $user->orders()->where('order_date','>',$targetDate)->orderBy('order_date','desc')->paginate(15);
+        return view('shopping.search_order_history',compact('user','recentlyOrders'));
     }
 
     /**
@@ -64,13 +64,7 @@ class OrderDetailsController extends Controller
      */
     public function edit($id)
     {
-        $order = Order::find($id);
-        foreach($order->orderDetails as $orderDetail){
-            $orderDetail->shipment_status_id = 4;
-            $orderDetail->timestamps = false;
-            $orderDetail->save();
-        }
-        return redirect()->back();
+        //
     }
 
     /**

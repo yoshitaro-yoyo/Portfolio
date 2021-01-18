@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    @if(isset($order(id)))
+    @if($logInUser == $user)
         <div class="container">
             <div class="jumbotron bg-white">
                 <div class="card border-dark">
@@ -14,11 +14,16 @@
                     </div>
                 </div>
                 <div class="mt-5 ml-3">
-                    @if(isset($order->orderDetails()))
+                    @php
+                        $notReady = 0;
+                        $orderDetails = $order->orderDetails();
+                    @endphp
+                    @if(isset($orderDetails))
                         @php
                             $notReady = 0;
                             $ready = 0;
                             $shipped = 0;
+                            $cancel = 0;
                             $orderDetailCount = 0;
                             foreach( $order->orderDetails as $orderDetail ){
                                 $shipmentStatusId = $orderDetail->shipment_status_id;
@@ -26,26 +31,39 @@
                                     $ready += 1;
                                 }elseif($shipmentStatusId === 3){
                                     $shipped += 1;
+                                }elseif($shipmentStatusId === 4){
+                                    $cancel += 1;
                                 }
                             }
                             $orderDetailCount = $order->orderDetails()->count();
                         @endphp
+                        <p>注文番号：{{ $order->order_number }}</p>
                         @if($orderDetailCount === $shipped)
-                            $notReady = 0;
+                            @php
+                                $notReady = 0;
+                            @endphp
                             注文状態：発送済
                         @elseif($orderDetailCount === $ready)
-                            $notReady = 0;
+                            @php
+                                $notReady = 0;
+                            @endphp
                             注文状態：発送準備完了 
+                        @elseif($orderDetailCount === $cancel)
+                            @php
+                                $notReady = 0;
+                            @endphp
+                            注文状態：キャンセル
                         @else
-                            $notReady = 1;
+                            @php
+                                $notReady = 1;
+                            @endphp
                             注文状態：準備中
                         @endif
-                    @else
                     @endif  
                 </div>
                 @if($notReady === 1)
                     <div class="text-right">
-                       <a href="{{ action('OrderDetailsController@update',$orderDetails->id) }}" class="btn btn-danger">注文をキャンセルする</a>
+                        <a href="{{ action('OrderDetailsController@edit',$order->id) }}" class="btn btn-danger">注文をキャンセルする</a>
                     </div>
                 @endif
                 <table class="table table-borderless mt-3">
