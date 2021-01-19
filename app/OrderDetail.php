@@ -8,7 +8,12 @@ class OrderDetail extends Model
 {
     protected $table = 't_orders_details';
 
-    protected $fillable = ['product_id','order_id','shipment_status_id','order_quantity','shipment_date'];
+    protected $fillable = [
+        'product_id',
+        'order_id',
+        'shipment_status_id',
+        'order_quantity',
+    ];
 
 
     public function orders()
