@@ -16,11 +16,6 @@ class OrderDetail extends Model
     ];
 
 
-    public function orders()
-    {
-        return $this->belongsTo(Order::class);
-    }
-
     public function shipmentStatuses()
     {
         return $this->belongsTo(ShipmentStatus::class);
@@ -29,5 +24,10 @@ class OrderDetail extends Model
     public function products()
     {
         return $this->belongsTo(Product::class);
+    }
+
+    public function orders()
+    {
+        return $this->belongsTo(Order::class);
     }
 }

@@ -8,7 +8,9 @@ class Order extends Model
 {
     protected $table = 't_orders';
 
-    protected $fillable = ['user_id','order_date','order_number'];
+    protected $fillable = [
+        'user_id', 'order_date', 'order_number'
+    ];
 
     public function users()
     {
