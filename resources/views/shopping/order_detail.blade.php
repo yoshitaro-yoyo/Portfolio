@@ -63,7 +63,7 @@
                 </div>
                 @if($notReady === 1)
                     <div class="text-right">
-                        <a href="{{ action('OrderDetailsController@edit',$order->id) }}" class="btn btn-danger">注文をキャンセルする</a>
+                        <a href="{{ action('OrderDetailsController@edit', $order->id) }}" class="btn btn-danger">注文をキャンセルする</a>
                     </div>
                 @endif
                 <table class="table table-borderless mt-3">

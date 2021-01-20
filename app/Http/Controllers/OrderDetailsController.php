@@ -22,7 +22,7 @@ class OrderDetailsController extends Controller
         $user = User::find($userId);
         $logInUser = $request->user();
         $orderDetails = OrderDetail::all();
-        return view('shopping.order_detail',compact('user', 'logInUser', 'order', 'orderDetails'));
+        return view('shopping.order_detail', compact('user', 'logInUser', 'order', 'orderDetails'));
     }
 
     /**
