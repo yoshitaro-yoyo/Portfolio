@@ -11,15 +11,15 @@
                         <h4 class="mt-4">お届け先</h4>
                         <p class="mb-2" style="padding-left: 20px;">
                             〒
-                            {{$sesUsers->zipcode}}
-                            {{$sesUsers->prefecture}}
-                            {{$sesUsers->municipality}}
-                            {{$sesUsers->address}}
-                            {{$sesUsers->apartments}}
+                            {{$sessionUsers->zipcode}}
+                            {{$sessionUsers->prefecture}}
+                            {{$sessionUsers->municipality}}
+                            {{$sessionUsers->address}}
+                            {{$sessionUsers->apartments}}
                         </p>
                         <p style="padding-left: 160px;">
-                            {{$sesUsers->last_name}}
-                            {{$sesUsers->first_name}}
+                            {{$sessionUsers->last_name}}
+                            {{$sessionUsers->first_name}}
                             様
                         </p>
                     </div>
@@ -41,56 +41,58 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($sesData as $sesDatum)
-                            <tr class="text-center">
-                                <th class="align-middle">1</th>
-                                <td class="align-middle">
-                                    @if(isset($sesDatum->product_name))
-                                        {{ $sesDatum->product_name }}
-                                    @endif
-                                </td>
-                                <td class="align-middle">
-                                    @if(isset($sesDatum->category_name))
-                                        {{ $sesDatum->category_name }}
-                                    @endif
-                                </td>
-                                <td class="align-middle">
-                                    @if(isset($sesDatum->price))
-                                        {{ $sesDatum->price }}
-                                    @endif
-                                </td>
-                                <td class="align-middle">
-                                    <button type="button" class="btn btn-outline-dark">
-                                        @if(isset($sesDatum->sesQty))
-                                            {{ $sesDatum->sesQty }}
+                            @foreach ($cartData as $key => $data)
+                                <tr class="text-center">
+                                    <th class="align-middle">{{ $key += 1 }}</th>
+                                    <td class="align-middle">
+                                        @if(isset($data['product_name']))
+                                            {{ $data['product_name'] }}
                                         @endif
-                                    </button>
-                                    &nbsp;&nbsp;個
-                                </td>
-                                <td class="align-middle"></td>
-                                <td class="border-0 align-middle">
-                                    <a class="btn btn-danger" href="#" role="button">
-                                        削除
-                                    </a>
-                                </td>
+                                    </td>
+                                    <td class="align-middle">
+                                        @if(isset($data['category_name'])) 
+                                            {{ $data['category_name'] }}
+                                        @endif
+                                    </td>
+                                    <td class="align-middle">
+                                        @if(isset($data['price']))
+                                            {{number_format($data['price']) }}円
+                                        @endif
+                                    </td>
+                                    <td class="align-middle">
+                                        <button type="button" class="btn btn-outline-dark">
+                                            @if(isset($data['session_quantity']))
+                                                {{ $data['session_quantity'] }}
+                                            @endif
+                                        </button>
+                                        &nbsp;&nbsp;個
+                                    </td>
+                                    <td class="align-middle">{{ number_format($data['session_quantity'] * $data['price']) }}円</td>
+
+                                    <td class="border-0 align-middle">
+                                        {!! Form::open(['route' => ['itemRemove', 'method' => 'post', $data['session_products_id']]]) !!}
+                                            {{ Form::submit('削除', ['name' => 'delete_products_id', 'class' => 'btn btn-danger']) }}
+                                            {{ Form::hidden('product_id', $data['session_products_id']) }}
+                                            {{ Form::hidden('product_quantity', $data['session_quantity']) }}
+                                        {!! Form::close() !!}
+                                    </td>
+                                </tr>
+                            @endforeach
+
+                            <tr class="text-center">
+                                <th class="border-bottom-0 align-middle"></th>
+                                <td class="border-bottom-0 align-middle"></td>
+                                <td class="border-bottom-0 align-middle"></td>
+                                <td class="border-bottom-0 align-middle"></td>
+                                <td class="border-bottom-0 align-middle">合計</td>
+                                @php
+                                    foreach ($cartData as $key => $data)
+                                        $totalPrice = array_sum(array_column($cartData, 'itemPrice'))
+                                @endphp
+                                    <td class="border-bottom-0 align-middle">{{ number_format($totalPrice) }}円</td>
                             </tr>
-                        @endforeach
-                        <tr class="text-center">
-                            <th class="border-top-0 border-bottom border-dark align-middle"></th>
-                            <td class="border-top-0 border-bottom border-dark align-middle"></td>
-                            <td class="border-top-0 border-bottom border-dark align-middle"></td>
-                            <td class="border-top-0 border-bottom border-dark align-middle"></td>
-                            <td class="border-top-0 border-bottom border-dark align-middle"></td>
-                            <td class="border-top-0 border-bottom border-dark align-middle"></td>
-                        </tr>
-                        <tr class="text-center">
-                            <th class="border-bottom-0 align-middle"></th>
-                            <td class="border-bottom-0 align-middle"></td>
-                            <td class="border-bottom-0 align-middle"></td>
-                            <td class="border-bottom-0 align-middle"></td>
-                            <td class="border-bottom-0 align-middle">合計</td>
-                            <td class="border-bottom-0 align-middle">円</td>
-                        </tr>
+
+
                         <tr class="text-right">
                             <th class="border-0"></th>
                             <td class="border-0">
