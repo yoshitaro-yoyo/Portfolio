@@ -79,5 +79,10 @@ Route::get('productInfo/{id}', 'ProductController@show')->name('product.show');
 | カート内商品関連
 |--------------------------------------------------------------------------
 */
+Route::get('/noCartList', function () {
+    return view('products/no_cart_list');
+})->name('noCartlist');
+
 Route::resource('cartlist', 'ProductController', ['only' => ['index']]);
+Route::post('productInfo/cartListRemove', 'ProductController@remove')->name('itemRemove');
 Route::post('productInfo/addcart','ProductController@addCart')->name('addcart.post');
