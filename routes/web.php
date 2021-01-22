@@ -29,7 +29,7 @@ Route::get('/login', function () {
 Route::get('/register', function () {
     return view('auth/register');
 });
-//UserControllerのdestroyメソッドにあるredirectにて使用中
+//UserController内destroyメソッドのredirectにて使用中
 Route::get('/logout', function () {
     return view('front/before_login');
 })->name('top');
@@ -64,10 +64,20 @@ Route::post('signup','Auth\RegisterController@register')->name('signup.post');
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
-//商品詳細関連
+/*
+|--------------------------------------------------------------------------
+| 商品詳細関連
+|--------------------------------------------------------------------------
+*/
+Route::get('/no-product', function () {
+    return view('products/no_product');
+})->name('noProduct');
+Route::get('productInfo/{id}', 'ProductController@show')->name('product.show');
+
+/*
+|--------------------------------------------------------------------------
+| カート内商品関連
+|--------------------------------------------------------------------------
+*/
 Route::resource('cartlist', 'ProductController', ['only' => ['index']]);
-Route::get('prodinfo/{id}', 'ProductController@show')->name('prodinfo.show');
-Route::post('prodinfo/addcart','ProductController@addCart')->name('addcart.post');
-Route::get('/noProduct', function () {
-    return view('products/noproduct');
-})->name('noProd');
+Route::post('productInfo/addcart','ProductController@addCart')->name('addcart.post');
