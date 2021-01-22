@@ -14,23 +14,19 @@ class M_ShipmentsStatusesTableSeeder extends Seeder
         DB::table('m_shipments_statuses')->insert([
             [
                 'id' => 1,
-                'shipment_status_name' => '入金待ち',
+                'shipment_status_name' => '準備中',
             ],
             [
                 'id' => 2,
-                'shipment_status_name' => '発送処理中',
+                'shipment_status_name' => '準備完了',
             ],
             [
                 'id' => 3,
-                'shipment_status_name' => '発送処理済',
+                'shipment_status_name' => '発送済',
             ],
             [
                 'id' => 4,
-                'shipment_status_name' => '欠品中',
-            ],
-            [
-                'id' => 5,
-                'shipment_status_name' => '発送処理済',
+                'shipment_status_name' => 'キャンセル',
             ],
         ]);
     }
