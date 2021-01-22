@@ -47,7 +47,6 @@
                         <th class="text-left" width="15%"></th>
                     </tr>
                 </thead>
-                {{ $notice }}
                 @foreach($products as $product)
                 <tr>
                     <td>{{ $product->product_name }}</td>
