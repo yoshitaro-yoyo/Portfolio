@@ -19,7 +19,6 @@ class OrdersController extends Controller
         $orders = $user->orders()->orderBy('order_date', 'desc')->paginate(15);
         return view('shopping.order_history', compact('user', 'orders'));
     }
-    
     /**
      * Display the specified resource.
      *
