@@ -27,23 +27,21 @@ class ProductController extends Controller
             'session_quantity' => $request->product_quantity, 
         ];
 
-        //session情報にcartDataという連想配列が「無い」場合
+        //sessionにcartData配列が「無い」場合、商品情報の配列をcartData(key)という名で$cartDataをSessionに追加
         if (!$request->session()->has('cartData')) {
-            //商品情報の配列 cartData(key名)に、$cartData(配列)をSessionに追加
             $request->session()->push('cartData', $cartData);
         } else {
-            //session情報にcartDataという連想配列が「有る」場合、情報取得
+            //sessionにcartData配列が「有る」場合、情報取得
             $sessionCartData = $request->session()->get('cartData');
-            //dd($sessionCartData);
 
-            //flag定義 product_id同一確認フラグ = 同一ではない状態
+            //flag定義 product_id同一確認フラグ false = 同一ではない状態を指定
             $flag = false;
             foreach ($sessionCartData as $index => $sessionData) {
-                    //product_idが同一であれば、フラグをtrueにする → 個数の合算処理、及びセッション情報更新。更新は一度のみ
-                    // dd($sessionData);
+                //product_idが同一であれば、フラグをtrueにする → 個数の合算処理、及びセッション情報更新。更新は一度のみ
                 if ($sessionData['session_products_id'] === $cartData['session_products_id'] ) {
                     $flag = true;
                     $quantity = $sessionData['session_quantity'] + $cartData['session_quantity'];
+                    //cartDataをrootとしたツリー状の多次元連想配列の特定のValueにアクセスし、指定の変数でValueの上書き処理
                     $request->session()->put('cartData.' . $index . '.session_quantity', $quantity);
                     break;
                 }
@@ -53,7 +51,6 @@ class ProductController extends Controller
             if ($flag === false) {
                 $request->session()->push('cartData', $cartData);
             }
-            //dd($sessionCartData);
         }
 
         //POST送信された情報をsessionに保存 'users_id'(key)に$request内の'users_id'をセット
@@ -73,37 +70,35 @@ class ProductController extends Controller
     */
     public function index(Request $request)
     {
-        //渡されたセッション情報をkey（名前）用いそれぞれ取得し変数に代入
+        //渡されたセッション情報をkey（名前）を用いそれぞれ取得、変数に代入
         $cartData = $request->session()->get('cartData');
-        $sessionUsersId = $request->session()->get('users_id');
-        //dd($cartData);
+
         if (!empty($cartData)) {
             foreach ($cartData as &$data) {
-                //二次元目の配列を指定している$dataに'product'key生成 $product内の各カラムを代入
                 $product = Product::with('category')->find($data['session_products_id']);
+                //二次元目の配列を指定している$dataに'product〜'key生成 Modelオブジェクト内の各カラムを代入
+                //＆で参照渡し 仮引数($data)の変更で実引数($cartData)を更新する
                 $data['product_name'] = $product->product_name;
                 $data['category_name'] = $product['category']->category_name;
                 $data['price'] = $product->price;
 
-                //商品小計の配列作成し追加
+                //商品小計の配列作成し、配列の追加
                 $itemPrice = $data['price'] * $data['session_quantity'];
                 $data['itemPrice'] = $itemPrice;
             }
 
-            //第二引数に指定したkeyの値を配列として変数に入れる
-            $sessionProductsId = array_column($cartData, 'session_products_id');
+            //第二引数に指定したkeyの値を配列として変数に格納
             $sessionQuantity = array_column($cartData, 'session_quantity');
-            // dd($sessionProductsId);
 
-            //取得したidを元に各テーブルのカラムデータをDBから取得
+            $sessionProductsId = array_column($cartData, 'session_products_id');
             $sessionProducts = Product::find($sessionProductsId);
-            // dd($sessionProducts);
+
+            $sessionUsersId = $request->session()->get('users_id');
             $sessionUsers = User::find($sessionUsersId);
             $user = Auth::user();
 
             //Productテーブルに該当IDが存在しない場合、戻り値としてnullが返される → issetで条件分岐を指定し例外処理を行う
             if (isset($sessionProducts)) {
-            //&& $user == $sessionUsers
                 return view('products.cartlist', compact('sessionUsers', 'cartData', 'totalPrice', 'user'));
             }
 
@@ -129,6 +124,11 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    /*
+    |--------------------------------------------------------------------------
+    | カート内商品注文確定(DB登録)
+    |--------------------------------------------------------------------------
+    */
     public function store(Request $request)
     {
         //
@@ -147,10 +147,10 @@ class ProductController extends Controller
     */
     public function show($id)
     {
-        //itemDetail/{id}に該当するidを元に対応するproductを取得
+        //itemDetail/{id}に該当するidを元にModelオブジェクト取得
         $product = Product::find($id);
         if (!empty($product)) {
-            //productのcategory_idを取得し、Category.phpを経由し該当idが所有するカテゴリー名を取得する(リレーション)
+            //productテーブルのcategory_idを取得、Category.phpを経由し該当idが所有するカテゴリー名を取得する(リレーション)
             $category_name = Category::find($product->category_id);
             $user = Auth::user();
             return view('products.prodinfo', compact('product', 'category_name', 'user'));
