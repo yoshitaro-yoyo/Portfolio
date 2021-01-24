@@ -46,6 +46,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('users', 'UserController', ['only' =>['show', 'edit', 'update', 'destroy']]);
     Route::resource('orders', 'OrdersController', ['only' =>['index']]);
     Route::resource('searchOrders', 'OrdersController', ['only' =>['show']]);
+    Route::resource('orderDetails', 'OrderDetailsController', ['only' =>['show','edit']]);
 });
 
 /*
