@@ -24,12 +24,7 @@ class ProductController extends Controller
         // カテゴリidの昇順(asc)に表示
         $products = $query->orderBy('category_id', 'asc')->paginate(15);
 
-        // 検索結果がない場合
-        $notice = null;
-        if ($products->count() == 0) $notice = "検索結果がありませんでした";
-
-        $category = new MCategory;
-        $categories = $category->categoryList();
+        $categories = MCategory::categoryList();
         return view('shopping.product_search', compact('products', 'categories', 'searchWord', 'categoryId', 'notice'));
     }
     // str_replaceでセキュリティ対策

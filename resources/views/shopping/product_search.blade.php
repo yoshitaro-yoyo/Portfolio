@@ -35,7 +35,7 @@
                 </div>
             </div>
         </div>
-        @if (count($products) > 0)
+        @if ($products->count() > 0)
         <div class="productTable">
             <p>全{{ $products->count() }}件</p>
             <table class="table table-hover">
@@ -62,7 +62,7 @@
         </div>
         @else
         <div class="d-flex justify-content-center mx-auto mt-4 bg-info w-25">
-            <span>{{ $notice }}<span>
+            <span>検索結果がありませんでした</span>
         </div>
         @endif
     </div>
