@@ -47,6 +47,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('orders', 'OrdersController', ['only' =>['index']]);
     Route::resource('searchOrders', 'OrdersController', ['only' =>['show']]);
     Route::resource('orderDetails', 'OrderDetailsController', ['only' =>['show','edit']]);
+    Route::get('product_search', 'ProductController@search')->name('product_search');
 });
 
 /*
