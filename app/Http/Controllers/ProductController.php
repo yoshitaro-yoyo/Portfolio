@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\MProduct;
-use App\MCategory;
+use App\Product;
+use App\Category;
 
 class ProductController extends Controller
 {
@@ -13,7 +13,7 @@ class ProductController extends Controller
     {
         $searchWord = $request->input('searchWord');
         $categoryId = $request->input('categoryId');
-        $query = MProduct::query();
+        $query = Product::query();
         if (isset($searchWord)) {
             $query->where('product_name', 'like', '%' . self::escapeLike($searchWord) . '%');
         }
@@ -24,7 +24,7 @@ class ProductController extends Controller
         // カテゴリidの昇順(asc)に表示
         $products = $query->orderBy('category_id', 'asc')->paginate(15);
 
-        $categories = MCategory::categoryList();
+        $categories = Category::categoryList();
         return view('shopping.product_search', compact('products', 'categories', 'searchWord', 'categoryId', 'notice'));
     }
     // str_replaceでセキュリティ対策
