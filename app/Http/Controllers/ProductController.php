@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use App\Product;
 use App\Category;
 use App\User;
@@ -10,6 +11,35 @@ use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
+    /*
+    |--------------------------------------------------------------------------
+    | 商品検索
+    |--------------------------------------------------------------------------
+    */
+    public function search(Request $request)
+    {
+        $searchWord = $request->input('searchWord');
+        $categoryId = $request->input('categoryId');
+        $query = Product::query();
+        if (isset($searchWord)) {
+            $query->where('product_name', 'like', '%' . self::escapeLike($searchWord) . '%');
+        }
+        //カテゴリが選択された場合の処理
+        if (isset($categoryId)) {
+            $query->where('category_id', $categoryId);
+        }
+        // カテゴリidの昇順(asc)に表示
+        $products = $query->orderBy('category_id', 'asc')->paginate(15);
+
+        $categories = Category::categoryList();
+        return view('shopping.product_search', compact('products', 'categories', 'searchWord', 'categoryId', 'notice'));
+    }
+    // str_replaceでセキュリティ対策
+    public static function escapeLike($str)
+    {
+        return str_replace(['\\', '%', '_'], ['\\\\', '\%', '\_'], $str);
+    }
+
     /*
     |--------------------------------------------------------------------------
     | 商品詳細 → カート画面へのSession情報保存
@@ -58,11 +88,6 @@ class ProductController extends Controller
         return redirect()->route('cartlist.index');
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     /*
     |--------------------------------------------------------------------------
     | カート内商品表示
@@ -108,22 +133,6 @@ class ProductController extends Controller
         }
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     /*
     |--------------------------------------------------------------------------
     | カート内商品注文確定(DB登録)
@@ -134,12 +143,6 @@ class ProductController extends Controller
         //
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     /*
     |--------------------------------------------------------------------------
     | 商品詳細画面
@@ -157,39 +160,5 @@ class ProductController extends Controller
         } else {
             return redirect()->route('noProduct');
         }
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 }
