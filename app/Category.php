@@ -7,19 +7,18 @@ use Illuminate\Database\Eloquent\Model;
 class Category extends Model
 {
     protected $table = 'm_categories';
-
-    protected $fillable = [
-        'category_name',
-    ];
+    public $timestamps = false;
+    protected $fillable = ['id', 'category_name', ];
 
     // m_categoriesテーブルから::pluckでcategory_nameとidを抽出
     public static function categoryList()
     {
         return self::pluck('category_name', 'id');
     }
-    // リレーション関係の定義
+
+    //商品カテゴリー情報に関連するカテゴリーIDを取得する
     public function products()
     {
-        return $this->hasMany(Product::class);
+        return $this->hasMany('App\Product');
     }
 }

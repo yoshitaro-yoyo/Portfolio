@@ -8,21 +8,10 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    /**
-     * The table associated with the model.
-     *
-     * @var string
-     */
     public $timestamps = false;
     protected $table = 'm_users';
-
     use Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $fillable = [
         'password', 
         'last_name', 
@@ -37,25 +26,21 @@ class User extends Authenticatable
         'company_name', 
     ];
 
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
     protected $hidden = [
         'password', 'remember_token', 
     ];
 
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
     protected $casts = [
         'email_verified_at' => 'datetime', 
     ];
+
+    public function products()
+    {
+        return $this->hasMany('App\Product');
+    }
+
     public function orders()
     {
-        return $this->hasMany(Order::class);
+        return $this->hasMany('App\Order');
     }
 }
