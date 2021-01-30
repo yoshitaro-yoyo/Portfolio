@@ -5,21 +5,12 @@
 | headerからの遷移
 |--------------------------------------------------------------------------
 */
-
-Route::get('/', function () {
-    return view('front/before_login');
-});
-Route::get('/login', function () {
-    return view('auth/login');
-});
-Route::get('/register', function () {
-    return view('auth/register');
-});
+//ルートロードの最適化時、クロージャはシリアライズ不可のためviewメソッド使用
+Route::view('/', 'front/before_login');
+Route::view('/login', 'auth/login');
+Route::view('/register', 'auth/register');
 //UserController内destroyメソッドのredirectにて使用中
-Route::get('/logout', function () {
-    return view('front/before_login');
-})->name('top');
-
+Route::view('/logout', 'front/before_login')->name('top');
 
 /*
 |--------------------------------------------------------------------------
@@ -57,9 +48,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 | 商品詳細関連
 |--------------------------------------------------------------------------
 */
-Route::get('/no-product', function () {
-    return view('products/no_product');
-})->name('noProduct');
+Route::view('/no-product', 'products/no_product')->name('noProduct');
 Route::get('productInfo/{id}', 'ProductController@show')->name('product.show');
 
 /*
@@ -67,10 +56,10 @@ Route::get('productInfo/{id}', 'ProductController@show')->name('product.show');
 | カート内商品関連
 |--------------------------------------------------------------------------
 */
-Route::get('/noCartList', function () {
-    return view('products/no_cart_list');
-})->name('noCartlist');
+Route::view('/no-cartList', 'products/no_cart_list')->name('noCartlist');
+Route::view('/purchaseCompleted', 'products/purchase_completed');
 
 Route::resource('cartlist', 'ProductController', ['only' => ['index']]);
-Route::post('productInfo/cartListRemove', 'ProductController@remove')->name('itemRemove');
-Route::post('productInfo/addcart','ProductController@addCart')->name('addcart.post');
+Route::post('productInfo/addCart/cartListRemove', 'ProductController@remove')->name('itemRemove');
+Route::post('productInfo/addCart','ProductController@addCart')->name('addcart.post');
+Route::post('productInfo/addCart/orderFinalize','ProductController@store')->name('orderFinalize');
