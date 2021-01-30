@@ -11,15 +11,15 @@
                         <h4 class="mt-4">お届け先</h4>
                         <p class="mb-2" style="padding-left: 20px;">
                             〒
-                            {{$sessionUsers->zipcode}}
-                            {{$sessionUsers->prefecture}}
-                            {{$sessionUsers->municipality}}
-                            {{$sessionUsers->address}}
-                            {{$sessionUsers->apartments}}
+                            {{$sessionUser->zipcode}}
+                            {{$sessionUser->prefecture}}
+                            {{$sessionUser->municipality}}
+                            {{$sessionUser->address}}
+                            {{$sessionUser->apartments}}
                         </p>
                         <p style="padding-left: 160px;">
-                            {{$sessionUsers->last_name}}
-                            {{$sessionUsers->first_name}}
+                            {{$sessionUser->last_name}}
+                            {{$sessionUser->first_name}}
                             様
                         </p>
                     </div>
@@ -45,29 +45,23 @@
                                 <tr class="text-center">
                                     <th class="align-middle">{{ $key += 1 }}</th>
                                     <td class="align-middle">
-                                        @if(isset($data['product_name']))
-                                            {{ $data['product_name'] }}
-                                        @endif
+                                        {{ $data['product_name'] }}
                                     </td>
                                     <td class="align-middle">
-                                        @if(isset($data['category_name'])) 
-                                            {{ $data['category_name'] }}
-                                        @endif
+                                        {{ $data['category_name'] }}
                                     </td>
                                     <td class="align-middle">
-                                        @if(isset($data['price']))
-                                            {{number_format($data['price']) }}円
-                                        @endif
+                                        ¥{{ number_format($data['price']) }} 円
                                     </td>
                                     <td class="align-middle">
                                         <button type="button" class="btn btn-outline-dark">
-                                            @if(isset($data['session_quantity']))
-                                                {{ $data['session_quantity'] }}
-                                            @endif
+                                            {{ $data['session_quantity'] }}
                                         </button>
-                                        &nbsp;&nbsp;個
+                                        個
                                     </td>
-                                    <td class="align-middle">{{ number_format($data['session_quantity'] * $data['price']) }}円</td>
+                                    <td class="align-middle">
+                                        ¥{{ number_format($data['session_quantity'] * $data['price']) }}
+                                    </td>
 
                                     <td class="border-0 align-middle">
                                         {!! Form::open(['route' => ['itemRemove', 'method' => 'post', $data['session_products_id']]]) !!}
@@ -86,9 +80,11 @@
                                 <td class="border-bottom-0 align-middle"></td>
                                 <td class="border-bottom-0 align-middle">合計</td>
                                 @php
-                                    $totalPrice = array_sum(array_column($cartData, 'itemPrice'))
+                                    $totalPrice = number_format(array_sum(array_column($cartData, 'itemPrice')))
                                 @endphp
-                                    <td class="border-bottom-0 align-middle">{{ number_format($totalPrice) }}円</td>
+                                    <td class="border-bottom-0 align-middle">
+                                        ¥{{ $totalPrice }}円
+                                    </td>
                             </tr>
 
 
@@ -102,9 +98,9 @@
                             <td class="border-0"></td>
                             <td class="border-0"></td>
                             <td class="border-0">
-                                <a class="btn btn-primary"  href="#" role="button">
-                                    注文を確定する
-                                </a>
+                                {!! Form::open(['route' => ['orderFinalize', 'method' => 'post', $data['session_products_id']]]) !!}
+                                    {{ Form::submit('注文を確定する', ['name' => 'orderFinalize', 'class' => 'btn btn-primary']) }}
+                                {!! Form::close() !!}
                             </td>
                             <td class="border-0 align-middle"></td>
                         </tr>
