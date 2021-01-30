@@ -8,24 +8,13 @@ use Illuminate\Http\Request;
 
 class OrdersController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index(Request $request)
     {
         $user = $request->user();
         $orders = $user->orders()->orderBy('order_date', 'desc')->paginate(15);
         return view('shopping.order_history', compact('user', 'orders'));
     }
-    
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function show($id)
     {
         $user = User::find($id);

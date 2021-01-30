@@ -2,20 +2,6 @@
 
 /*
 |--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
-
-
-
-/*
-|--------------------------------------------------------------------------
 | headerからの遷移
 |--------------------------------------------------------------------------
 */
@@ -46,6 +32,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('users', 'UserController', ['only' =>['show', 'edit', 'update', 'destroy']]);
     Route::resource('orders', 'OrdersController', ['only' =>['index']]);
     Route::resource('searchOrders', 'OrdersController', ['only' =>['show']]);
+    Route::resource('orderDetails', 'OrderDetailsController', ['only' =>['show','edit']]);
+    Route::get('product_search', 'ProductController@search')->name('product_search');
 });
 
 /*

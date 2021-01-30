@@ -86,8 +86,7 @@
                                 <td class="border-bottom-0 align-middle"></td>
                                 <td class="border-bottom-0 align-middle">合計</td>
                                 @php
-                                    foreach ($cartData as $key => $data)
-                                        $totalPrice = array_sum(array_column($cartData, 'itemPrice'))
+                                    $totalPrice = array_sum(array_column($cartData, 'itemPrice'))
                                 @endphp
                                     <td class="border-bottom-0 align-middle">{{ number_format($totalPrice) }}円</td>
                             </tr>
