@@ -8,6 +8,8 @@ class OrderDetail extends Model
 {
     protected $table = 't_orders_details';
 
+    public $timestamps = false;
+
     protected $fillable = [
         'product_id',
         'order_id',
@@ -15,6 +17,15 @@ class OrderDetail extends Model
         'order_quantity',
     ];
 
+    public function product()
+    {
+        return $this->belongsTo('App\Products');
+    }
+
+    public function order()
+    {
+        return $this->belongsTo('App\Order');
+    }
 
     public function shipmentStatuses()
     {
@@ -24,10 +35,5 @@ class OrderDetail extends Model
     public function products()
     {
         return $this->belongsTo('App\Product');
-    }
-
-    public function orders()
-    {
-        return $this->belongsTo('App\Order');
     }
 }
