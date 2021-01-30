@@ -22,8 +22,23 @@ class Product extends Model
     }
 
     //ユーザ情報にProduct情報を紐付ける
-    public function users()
+    public function user()
     {
         return $this->belongsTo('App\User');
+    }
+
+    public function saleStatus()
+    {
+        return $this->belongsTo('App\SaleStatus');
+    }
+
+    public function productStatus()
+    {
+        return $this->belongsTo('App\ProductStatus');
+    }
+
+    public function orderDetails()
+    {
+        return $this->hasMany('App\OrderDetail');
     }
 }
