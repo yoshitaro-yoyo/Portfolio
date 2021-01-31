@@ -158,8 +158,7 @@ class ProductController extends Controller
             return redirect()->route('cartlist.index');
          }
 
-        $user = Auth::user();
-        return view('products.no_cart_list', compact('user'));
+        return view('products.no_cart_list', ['user' => Auth::user()]);
     }
 
     /*
