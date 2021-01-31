@@ -61,6 +61,7 @@ Route::get('/no-product', function () {
     return view('products/no_product');
 })->name('noProduct');
 Route::get('productInfo/{id}', 'ProductController@show')->name('product.show');
+Route::get('/prodinfo/{id}', 'ProductController@show')->name('prodinfo');
 
 /*
 |--------------------------------------------------------------------------
