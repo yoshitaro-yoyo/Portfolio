@@ -53,7 +53,6 @@
                     <td>{{ $product->category->category_name }}</td>
                     <td>{{ $product->price }}円</td>
                     <td><a href="{{ route('prodinfo', ['id' => $product->id])}}" class="btn btn-primary btn-sm">商品詳細</a></td>
-                    <!-- <td><a href="#" class="btn btn-primary btn-sm">商品詳細</a></td> -->
                 </tr>
                 @endforeach
             </table>
