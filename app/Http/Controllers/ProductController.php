@@ -204,7 +204,7 @@ class ProductController extends Controller
         return view('products/purchase_completed', compact('order'));
     }
 
-    /**
+    /*
     |--------------------------------------------------------------------------
     | 商品詳細画面
     |--------------------------------------------------------------------------
