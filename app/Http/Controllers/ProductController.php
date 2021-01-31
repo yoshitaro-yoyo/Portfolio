@@ -186,7 +186,7 @@ class ProductController extends Controller
         //上記Collectionから id の値だけを取得した配列に変換
         $savedOrderId = $savedOrder->pluck('id')->toArray();
 
-        //注文詳細情報保存を注文数分繰り返す
+        //注文詳細情報保存を注文数分繰り返す １回のリクエストを複数カラムに分けDB登録
         foreach ($cartData as $data) {
             //注文詳細情報に関わるインスタンス生成
             $orderDetail = new \App\OrderDetail;
