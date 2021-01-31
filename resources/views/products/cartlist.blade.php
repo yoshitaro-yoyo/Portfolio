@@ -91,7 +91,7 @@
                         <tr class="text-right">
                             <th class="border-0"></th>
                             <td class="border-0">
-                                <a class="btn btn-success" href="#" role="button">
+                                <a class="btn btn-success" href="{{ route('product_search') }}" role="button">
                                     買い物を続ける
                                 </a>
                             </td>
