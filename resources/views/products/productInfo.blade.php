@@ -42,7 +42,7 @@
                         {!! Form::label('prodqty', '購入個数', ['class' => 'mt-1']) !!}
                         <div class="form-group col-sm-1">
                             <div class="ml-1">
-                                <input type="text" name="product_quantity" class="form-control" id="prodqty" pattern="[1-9][0-9]*" min="1" required>
+                                <input type="number" name="product_quantity" class="form-control" id="prodqty" pattern="[1-9][0-9]*" min="1" required autofocus>
                             </div>
                         </div>
                         {!! Form::label('', '個', ['class' => 'mt-1 mr-3']) !!}

@@ -10,66 +10,31 @@ use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-   	    //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    /*
+    |--------------------------------------------------------------------------
+    | ユーザー情報表示画面
+    |--------------------------------------------------------------------------
+    */
     public function show($id)
     {
         $user = Auth::user();
-        //policy → HTTPレスポンスのthrowを避ける
+        //policy canメソッド → 条件不一致時にHTTPレスポンスのthrowを避ける
+        //ログインしているユーザー以外の情報の取得・編集・削除をcanメソッドでアクセス制限
         if($user->can('view', $user)) {
             return view('users.show', compact('user'));
         } else {
             return back();
         }
-
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    /*
+    |--------------------------------------------------------------------------
+    | ユーザー情報編集画面
+    |--------------------------------------------------------------------------
+    */
     public function edit($id)
     {
         $user = Auth::user();
-
         if($user->can('edit', $user)) {
             return view('users.edit', compact('user'));
         } else {
@@ -77,29 +42,26 @@ class UserController extends Controller
         }
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    /*
+    |--------------------------------------------------------------------------
+    | ユーザー情報更新機能
+    |--------------------------------------------------------------------------
+    */
     public function update($id, Request $request)
     {
         $params = $request->validate([
-            'first_name' => ['required', 'string', 'max:10'], 
-            'last_name' => ['required', 'string', 'max:10'], 
+            'first_name' => ['required', 'string', 'max:16'], 
+            'last_name' => ['required', 'string', 'max:16'], 
             'zipcode' => ['required', 'numeric', 'digits:7'], 
-            'prefecture' => ['required', 'string', 'max:5'], 
-            'municipality' => ['required', 'string', 'max:10'], 
-            'address' => ['required', 'string', 'max:15'], 
-            'apartments' => ['required', 'string', 'max:20'], 
+            'prefecture' => ['required', 'string', 'max:16'], 
+            'municipality' => ['required', 'string', 'max:16'], 
+            'address' => ['required', 'string', 'max:32'], 
+            'apartments' => ['required', 'string', 'max:32'], 
             'email' => ['email', 'string', 'max:128', Rule::unique('users')->ignore(request('user'))], 
-            'phone_number' => ['required', 'string', 'numeric', 'digits_between:1,15'], 
+            'phone_number' => ['required', 'string', 'numeric', 'digits_between:1,16'], 
         ]);
 
         $user = Auth::user();
-
         if($user->can('update', $user)) {
             $user->fill($params)->save();
             return redirect()->route('users.show',  compact('user'));
@@ -108,12 +70,11 @@ class UserController extends Controller
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    /*
+    |--------------------------------------------------------------------------
+    | ユーザー情報削除機能
+    |--------------------------------------------------------------------------
+    */
     public function destroy($id)
     {
         $user = Auth::user();

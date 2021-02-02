@@ -5,25 +5,16 @@
 | headerからの遷移
 |--------------------------------------------------------------------------
 */
-
-Route::get('/', function () {
-    return view('front/before_login');
-});
-Route::get('/login', function () {
-    return view('auth/login');
-});
-Route::get('/register', function () {
-    return view('auth/register');
-});
+//ルートロードの最適化時、クロージャはシリアライズ不可のためviewメソッド使用
+Route::view('/', 'front/before_login');
+Route::view('/login', 'auth/login');
+Route::view('/register', 'auth/register');
 //UserController内destroyメソッドのredirectにて使用中
-Route::get('/logout', function () {
-    return view('front/before_login');
-})->name('top');
-
+Route::view('/logout', 'front/before_login')->name('top');
 
 /*
 |--------------------------------------------------------------------------
-| 情報修正ボタンからの遷移と更新処理
+| 情報修正ボタンからの遷移と更新処理、及びミドルウエア使用ルーティング
 |--------------------------------------------------------------------------
 */
 
@@ -57,9 +48,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 | 商品詳細関連
 |--------------------------------------------------------------------------
 */
-Route::get('/no-product', function () {
-    return view('products/no_product');
-})->name('noProduct');
+Route::view('/no-product', 'products/no_product')->name('noProduct');
 Route::get('productInfo/{id}', 'ProductController@show')->name('product.show');
 Route::get('/prodinfo/{id}', 'ProductController@show')->name('prodinfo');
 
@@ -68,5 +57,10 @@ Route::get('/prodinfo/{id}', 'ProductController@show')->name('prodinfo');
 | カート内商品関連
 |--------------------------------------------------------------------------
 */
+Route::view('/no-cartList', 'products/no_cart_list')->name('noCartlist');
+Route::view('/purchaseCompleted', 'products/purchase_completed');
+
 Route::resource('cartlist', 'ProductController', ['only' => ['index']]);
-Route::post('productInfo/addcart','ProductController@addCart')->name('addcart.post');
+Route::post('productInfo/addCart/cartListRemove', 'ProductController@remove')->name('itemRemove');
+Route::post('productInfo/addCart','ProductController@addCart')->name('addcart.post');
+Route::post('productInfo/addCart/orderFinalize','ProductController@store')->name('orderFinalize');
