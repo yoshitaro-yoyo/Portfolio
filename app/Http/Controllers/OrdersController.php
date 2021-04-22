@@ -8,18 +8,16 @@ use Illuminate\Http\Request;
 
 class OrdersController extends Controller
 {
-    public function index(Request $request)
+    public function index()
     {
-        $user = $request->user();
-        $orders = $user->orders()->orderBy('order_date', 'desc')->paginate(15);
-        return view('shopping.order_history', compact('user', 'orders'));
+        $orders = auth()->user()->orders()->orderBy('order_date', 'desc')->paginate(15);
+        return view('shopping.order_history', compact('orders'));
     }
 
-    public function show($id)
+    public function show()
     {
-        $user = User::find($id);
         $targetDate = today()->subMonth(3);
-        $recentlyOrders = $user->orders()->where('order_date', '>', $targetDate)->orderBy('order_date', 'desc')->paginate(15);
-        return view('shopping.search_order_history', compact('user', 'recentlyOrders'));
+        $recentlyOrders = auth()->user()->orders()->where('order_date', '>', $targetDate)->orderBy('order_date', 'desc')->paginate(15);
+        return view('shopping.search_order_history', compact('recentlyOrders'));
     }
 }
