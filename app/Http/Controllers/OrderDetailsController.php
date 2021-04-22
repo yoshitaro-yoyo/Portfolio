@@ -15,14 +15,12 @@ class OrderDetailsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request,$id)
+    public function show($id)
     {
         $order = Order::find($id);
-        $userId = $order->user_id;
-        $user = User::find($userId);
-        $logInUser = $request->user();
+        $user = User::find($order->user_id);
         $orderDetails = OrderDetail::all();
-        return view('shopping.order_detail', compact('user', 'logInUser', 'order', 'orderDetails'));
+        return view('shopping.order_detail', compact('user', 'order', 'orderDetails'));
     }
 
     /**
