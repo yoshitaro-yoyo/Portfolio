@@ -2,7 +2,9 @@
 
 @section('content')
 <div class="container my-4">
-    <a href="{{ route('orders.index') }}" class="btn btn-secondary btn-sm">全ての注文を表示</a>
+    <a href="{{ route('orders.index') }}" class="btn btn-secondary btn-sm">
+        全ての注文を表示
+    </a>
 </div>
 <div class="container">
     <table class="table">
@@ -24,7 +26,14 @@
                 <th class="font-weight-normal" scope="row">{{ $orderNumber += 1 }}</th>
                     <td class="text-left">{{ $recentlyOrder->order_number }}</td>
                     <td class="text-left">
-                        {{ $user->zipcode }}<br />{{ $user->prefecture }}{{ $user->municipality }}{{ $user->address }}　{{ $user->apartments }}<br />{{ $user->last_name }}　{{ $user->first_name }}　様
+                        {{ auth()->user()->zipcode }}<br />
+                        {{ auth()->user()->prefecture }}
+                        {{ auth()->user()->municipality }}
+                        {{ auth()->user()->address }}
+                        {{ auth()->user()->apartments }}<br />
+                        {{ auth()->user()->last_name }}
+                        {{ auth()->user()->first_name }}
+                        様
                     </td>
                     <td class="text-left">
                         注文日時：{{ $recentlyOrder->order_date }}<br/>
@@ -58,7 +67,7 @@
                     <td class="border-0 align-middle">
                         <a href="{{ action('OrderDetailsController@show', $recentlyOrder->id) }}" class="btn btn-primary btn-sm">詳細</a>
                     </td>
-                </tr>     
+                </tr>
             @endforeach
         </tbody>
     </table>
@@ -66,4 +75,4 @@
         {{ $recentlyOrders->links() }}
     </div>
 </div>
-@endsection 
+@endsection
