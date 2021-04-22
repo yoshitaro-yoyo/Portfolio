@@ -1,15 +1,26 @@
 @extends('layouts.app')
 
 @section('content')
-    @if($logInUser == $user)
+    @if($user == auth()->user())
         <div class="container">
             <div class="jumbotron bg-white">
                 <div class="card border-dark">
                     <div class="cord-body ml-3">
                         <h4 class="mt-4">お届け先</h4>
-                        <p class="ml-3">{{ $user->zipcode }}　{{ $user->prefecture }}{{ $user->municipality }}{{ $user->address }}　{{ $user->apartments }}</p>
+                        <p class="ml-3">
+                            〒
+                            {{ auth()->user()->zipcode }}　
+                            {{ auth()->user()->prefecture }}
+                            {{ auth()->user()->municipality }}
+                            {{ auth()->user()->address }}
+                            {{ auth()->user()->apartments }}
+                        </p>
                         <div class="ml-4">
-                            <p class="offset-sm-1">{{ $user->last_name }}　{{ $user->first_name }}　様</p>
+                            <p class="offset-sm-1">
+                                {{ auth()->user()->last_name }}
+                                {{ auth()->user()->first_name }}　
+                                様
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -59,11 +70,13 @@
                             @endphp
                             注文状態：準備中
                         @endif
-                    @endif  
+                    @endif
                 </div>
                 @if($notReady === 1)
                     <div class="text-right">
-                        <a href="{{ action('OrderDetailsController@edit', $order->id) }}" class="btn btn-danger">注文をキャンセルする</a>
+                        <a href="{{ action('OrderDetailsController@edit', $order->id) }}" class="btn btn-danger">
+                            注文をキャンセルする
+                        </a>
                     </div>
                 @endif
                 <table class="table table-borderless mt-3">
@@ -87,22 +100,16 @@
                             <tr>
                                 <th scope="row">{{ $orderDetailNumber += 1 }}</th>
                                     @php
-                                        $productId = $orderDetail->product_id;
-                                        $product = App\Product::find($productId); 
-                                        $categoryId = $product->category_id;
-                                        $category = App\Category::find($categoryId);
-                                        $shipmentStatusId = $orderDetail->shipment_status_id;
-                                        $shipmentStatus = App\ShipmentStatus::find($shipmentStatusId);
-                                        $subTotal = 0;
-                                        $price = $product->price;
-                                        $quantity = $orderDetail->order_quantity;
-                                        $subTotal = $price * $quantity;
+                                        $product = App\Product::find($orderDetail->product_id); 
+                                        $category = App\Category::find($product->category_id);
+                                        $shipmentStatus = App\ShipmentStatus::find($orderDetail->shipment_status_id);
+                                        $subTotal = $product->price * $orderDetail->order_quantity;
                                     @endphp
                                 <td>{{ $product->product_name }}</td>
                                 <td>{{ $category->category_name }}</td>
-                                <td>{{ $price }}円</td>
-                                <td>{{ $quantity }} 個</td>
-                                <td>{{ $subTotal }}円</td>
+                                <td>¥{{ number_format($product->price) }}円</td>
+                                <td>{{ number_format($orderDetail->order_quantity) }} 個</td>
+                                <td>¥{{ number_format($subTotal) }}円</td>
                                 <td>注文状態：{{ $shipmentStatus->shipment_status_name }}</td>
                                 @php
                                     $total += $subTotal;
@@ -113,20 +120,30 @@
                 </table>
                 <div class="border-top border-dark">
                     <div  class="mt-2 offset-sm-7">
-                        <p class="ml-4">合計　　　{{ $total }}円</p>
+                        <p class="ml-4">
+                            合計¥{{ number_format($total) }}円
+                        </p>
                     </div>
                 </div>
                 <div class="text-right mb-5">
-                    <a href="{{ route('orders.index') }}" class="btn btn-info">注文履歴に戻る</a>
+                    <a href="{{ route('orders.index') }}" class="btn btn-info">
+                        注文履歴に戻る
+                    </a>
                 </div>
-            </div>           
+            </div>
         </div>
     @else
         <div class="container">
             <div class="jumbotron text-center bg-white">
-                <h1>該当の注文は見つかりませんでした…</h1>
-                <p class="mt-5">注文履歴画面に戻り、やり直してください</p>
-                <a href="{{ route('orders.index') }}" class="btn btn-primary">注文履歴へ</a>
+                <h1>
+                    該当の注文は見つかりませんでした…
+                </h1>
+                <p class="mt-5">
+                    注文履歴画面に戻り、やり直してください
+                </p>
+                <a href="{{ route('orders.index') }}" class="btn btn-primary">
+                    注文履歴へ
+                </a>
             </div>
         </div>
     @endif
