@@ -1,14 +1,16 @@
 @extends('layouts.app')
 
 @section('content')
-    @php    
+    @php
         foreach($orders as $order){
             $orderDetails = $order->orderDetails();
         }
     @endphp
     @if(isset($orderDetails))
         <div class="container my-4">
-            <a href="{{ action('OrdersController@show', $user->id) }}" class="btn btn-secondary btn-sm">直近3ヶ月の注文を表示</a>
+            <a href="{{ action('OrdersController@show', auth()->user()->id) }}" class="btn btn-secondary btn-sm">
+                直近3ヶ月の注文を表示
+            </a>
         </div>
         <div class="container">
             <table class="table">
@@ -30,7 +32,15 @@
                             <th class="font-weight-normal" scope="row">{{ $orderNumber += 1 }}</th>
                             <td class="text-left">{{ $order->order_number }}</td>
                             <td class="text-left">
-                                {{ $user->zipcode }}<br/>{{ $user->prefecture }}{{ $user->municipality }}{{ $user->address }}　{{ $user->apartments }}<br/>{{ $user->last_name }}　{{ $user->first_name }}　様
+                                〒
+                                {{ auth()->user()->zipcode }}<br/>
+                                {{ auth()->user()->prefecture }}
+                                {{ auth()->user()->municipality }}
+                                {{ auth()->user()->address }}
+                                {{ auth()->user()->apartments }}<br/>
+                                {{ auth()->user()->last_name }}
+                                {{ auth()->user()->first_name }}
+                                様
                             </td>
                             <td class="text-left">
                                 注文日時：{{ $order->order_date }}<br/>
@@ -39,7 +49,7 @@
                                     $shipped = 0;
                                     $cancel = 0;
                                     $orderDetailCount = 0;
-                                    foreach( $order->orderDetails as $orderDetail ){
+                                    foreach( $order->orderDetails as $orderDetail ) {
                                         $shipmentStatusId = $orderDetail->shipment_status_id;
                                         if($shipmentStatusId === 2){
                                             $ready += 1;
@@ -62,7 +72,9 @@
                                 @endif
                             </td>
                             <td class="border-0 align-middle">
-                                <a href="{{ action('OrderDetailsController@show', $order->id) }}" class="btn btn-primary btn-sm">詳細</a>
+                                <a href="{{ action('OrderDetailsController@show', $order->id) }}" class="btn btn-primary btn-sm">
+                                    詳細
+                                </a>
                             </td>
                         </tr>
                     @endforeach
@@ -75,6 +87,6 @@
     @else
         <div class="blockquote mt-5 text-center">
             <h1 style="font-weight: bolder">注文履歴は存在しません</h1>
-        </div> 
+        </div>
     @endif
 @endsection
