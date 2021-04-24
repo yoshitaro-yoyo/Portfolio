@@ -10,37 +10,45 @@ use App\Order;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Validator;
 
 class ProductController extends Controller
 {
-    /*
-    |--------------------------------------------------------------------------
-    | 商品検索
-    |--------------------------------------------------------------------------
-    */
-    public function search(Request $request)
+    /**
+     *  検索結果画面表示
+     *
+     * @param  Illuminate\Http\Request  $request
+     * @param  App\Product  $product
+     * @param  APP\Category  $category
+     * @return \Illuminate\Http\Response
+     */
+    public function search(Product $product,  Category $category, Request $request)
     {
-        $searchWord = $request->input('searchWord');
-        $categoryId = $request->input('categoryId');
-        $query = Product::query();
-        if (isset($searchWord)) {
-            $query->where('product_name', 'like', '%' . self::escapeLike($searchWord) . '%');
+        $searchWord = $request->only(['searchWord']);
+        $categoryId = $request->only(['categoryId']);
+
+        // GETパラメータのvalueに不正値がないかチェックするためにキャスト
+        // blade 表示の際に配列型では表示出来ないのでキャスト
+        if (!is_null($searchWord)) {
+            $searchWord = (string) $request->input('searchWord');
         }
-        //カテゴリが選択された場合の処理
-        if (isset($categoryId)) {
-            $query->where('category_id', $categoryId);
+        if (!is_null($categoryId)) {
+            $categoryId = (int) $request->input('categoryId');
         }
-        //カテゴリidの昇順(asc)に表示
-        $products = $query->orderBy('category_id', 'asc')->paginate(15);
+
+        $maxCategoryId = $category->max('id');
+        $validator = Validator::make($request->all(), [
+            'searchWord' => ['string', 'nullable', 'max:30'],
+            'categoryId' => ['numeric', 'max:' . $maxCategoryId, 'nullable'],
+            ]);
+
+        if ($validator->fails()) {
+            abort(400);
+            }
 
         $categories = Category::categoryList();
-        return view('shopping.product_search', compact('products', 'categories', 'searchWord', 'categoryId', 'notice'));
-    }
-
-    // str_replaceでセキュリティ対策
-    public static function escapeLike($str)
-    {
-        return str_replace(['\\', '%', '_'], ['\\\\', '\%', '\_'], $str);
+        $products = $product->searchByInputParameters($searchWord, $categoryId);
+        return view('shopping.product_search', compact('products', 'categories', 'searchWord', 'categoryId'));
     }
 
     /*
@@ -219,6 +227,6 @@ class ProductController extends Controller
             return view('products.productInfo', compact('product', 'category_name', 'user'));
         }
 
-            return redirect()->route('noProduct');
+        return redirect()->route('noProduct');
     }
 }
